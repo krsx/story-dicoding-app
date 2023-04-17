@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Proyek Akhir Story App</string>
+
+    <string name="register">Daftar</string>
+    <string name="email_address">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="name">Nama</string>
+    <string name="login">Masuk</string>
+
+    <string name="have_account">Sudah punya akun?</string>
+    <string name="to_login">Masuk disini</string>
+
+    <string name="no_account">Belum punya akun?</string>
+    <string name="to_register">Daftar disini</string>
+
 </resources>

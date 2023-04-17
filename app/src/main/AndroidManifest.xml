@@ -12,11 +12,15 @@
         android:theme="@style/Theme.ProyekAkhirStoryApp"
         tools:targetApi="31">
         <activity
-            android:name=".AddStoryActivity"
+            android:name=".ui.screens.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".ui.screens.LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.screens.AddStoryActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.screens.MainActivity"
             android:exported="true">
