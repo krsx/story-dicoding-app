@@ -3,6 +3,7 @@ package com.example.proyekakhirstoryapp.ui.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import com.example.proyekakhirstoryapp.databinding.ActivityRegisterBinding
 import com.example.proyekakhirstoryapp.ui.ViewModelFactory
@@ -39,9 +40,19 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(intentMain)
             }
         }
+
+        registerViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
     private fun userRegister(name: String, email: String, password: String) {
         registerViewModel.registerUser(name, email, password)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) {
+            View.VISIBLE
+        } else View.GONE
     }
 }

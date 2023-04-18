@@ -12,5 +12,6 @@
 
     <string name="no_account">Belum punya akun?</string>
     <string name="to_register">Daftar disini</string>
+    <string name="logout">Logout</string>
 
 </resources>

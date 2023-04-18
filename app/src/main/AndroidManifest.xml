@@ -19,7 +19,7 @@
             android:name=".ui.home.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screens.AddStoryActivity"
+            android:name=".ui.addstory.AddStoryActivity"
             android:exported="false" />
 
         <activity

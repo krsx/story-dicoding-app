@@ -45,7 +45,7 @@ class PasswordForm : AppCompatEditText, OnTouchListener {
     private fun init() {
 
         showPasswordButton =
-            ContextCompat.getDrawable(context, R.drawable.ic_remove_red_eye_24) as Drawable
+            ContextCompat.getDrawable(context, R.drawable.ic_visibility_24) as Drawable
 
         setOnTouchListener(this)
 
@@ -129,6 +129,17 @@ class PasswordForm : AppCompatEditText, OnTouchListener {
                             } else {
                                 InputType.TYPE_CLASS_TEXT
                             }
+                            showPasswordButton = if (isVisible) {
+                                ContextCompat.getDrawable(
+                                    context,
+                                    R.drawable.ic_visibility_24
+                                ) as Drawable
+                            } else {
+                                ContextCompat.getDrawable(
+                                    context,
+                                    R.drawable.ic_visibility_off_24
+                                ) as Drawable
+                            }
                             setInputType(inputType)
                             return true
                         }
@@ -136,7 +147,6 @@ class PasswordForm : AppCompatEditText, OnTouchListener {
                 }
             }
         }
-
         return false
     }
 }
