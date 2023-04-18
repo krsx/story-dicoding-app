@@ -10,7 +10,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.R
@@ -56,6 +55,12 @@ class PasswordForm : AppCompatEditText, OnTouchListener {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0.toString().isNotEmpty()) showShowPasswordButton() else hideDrawables()
+
+                if (p0.toString().length <= 8) {
+                    setError("Masukkan minimal 8 karakter")
+                } else if (p0.toString().isNullOrEmpty()) {
+                    setError(null)
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {

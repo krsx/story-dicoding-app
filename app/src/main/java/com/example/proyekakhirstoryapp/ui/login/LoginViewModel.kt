@@ -2,17 +2,17 @@ package com.example.proyekakhirstoryapp.ui.login
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.response.LoginResult
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiConfig
+import com.example.proyekakhirstoryapp.data.datastore.UserPreferences
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(mApplication: Application) : ViewModel() {
+class LoginViewModel(mApplication: Application, private val pref: UserPreferences) : ViewModel() {
     var errorResponse: String = ""
     var error: String = ""
 
@@ -52,5 +52,15 @@ class LoginViewModel(mApplication: Application) : ViewModel() {
 
             }
         )
+    }
+
+    fun getUserToken(): LiveData<String> {
+        return pref.getUserToken().asLiveData()
+    }
+
+    fun saveUserToken(token: String) {
+        viewModelScope.launch {
+            pref.saveUserToken(token)
+        }
     }
 }

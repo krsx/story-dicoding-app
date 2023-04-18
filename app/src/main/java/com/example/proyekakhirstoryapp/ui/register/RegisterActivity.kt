@@ -36,8 +36,8 @@ class RegisterActivity : AppCompatActivity() {
 
         registerViewModel.user.observe(this) { user ->
             if (user == "User created") {
-                val intentMain = Intent(this@RegisterActivity, MainActivity::class.java)
-                startActivity(intentMain)
+                val intentLogin = Intent(this@RegisterActivity, LoginActivity::class.java)
+                startActivity(intentLogin)
             }
         }
 

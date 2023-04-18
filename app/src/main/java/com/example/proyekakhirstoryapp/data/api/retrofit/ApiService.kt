@@ -23,13 +23,14 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
-//    @Multipart
-//    @Headers("Authorization : Bearer<>")
-//    @POST("/stories")
-//    fun addStories(
-//        @Part photo: MultipartBody.Part,
-//        @Part("description") description: RequestBody,
-//    ): Call<RegisterResponse>
+    @Multipart
+    @Headers("Authorization : Bearer<token>")
+    @POST("/stories")
+    fun addStories(
+
+        @Part photo: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+    ): Call<RegisterResponse>
 
 //    @GET("/stories")
 //    @Headers("Authorization: Bearer <${T}>")

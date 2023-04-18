@@ -3,10 +3,15 @@ package com.example.proyekakhirstoryapp.ui
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.proyekakhirstoryapp.data.datastore.UserPreferences
+
 import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
 import com.example.proyekakhirstoryapp.ui.register.RegisterViewModel
 
-class ViewModelFactory constructor(private val mAplication: Application) :
+class ViewModelFactory constructor(
+    private val mApplication: Application,
+    private val pref: UserPreferences? = null
+) :
     ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
@@ -25,9 +30,9 @@ class ViewModelFactory constructor(private val mAplication: Application) :
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(mAplication) as T
+            return pref?.let { LoginViewModel(mApplication, it) } as T
         } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-            return RegisterViewModel(mAplication) as T
+            return RegisterViewModel(mApplication) as T
         }
         throw java.lang.IllegalArgumentException("Unkown ViewModel class: ${modelClass.name}")
     }
