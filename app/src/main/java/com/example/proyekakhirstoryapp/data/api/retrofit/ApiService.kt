@@ -1,5 +1,6 @@
 package com.example.proyekakhirstoryapp.data.api.retrofit
 
+import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.response.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -20,7 +21,7 @@ interface ApiService {
     fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<RegisterResponse>
+    ): Call<LoginResponse>
 
 //    @Multipart
 //    @Headers("Authorization : Bearer<>")

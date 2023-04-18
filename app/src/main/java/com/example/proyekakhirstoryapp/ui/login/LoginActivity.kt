@@ -1,4 +1,4 @@
-package com.example.proyekakhirstoryapp.ui.screens
+package com.example.proyekakhirstoryapp.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

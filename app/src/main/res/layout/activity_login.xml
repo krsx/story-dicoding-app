@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context=".ui.screens.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
     <TextView
         android:id="@+id/tv_login"
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="4dp"
         android:text="@string/no_account"
         app:layout_constraintEnd_toStartOf="@+id/tv_to_register"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />

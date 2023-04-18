@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.screens.RegisterActivity">
+    tools:context=".ui.register.RegisterActivity">
 
 
     <TextView
@@ -39,13 +39,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:autofillHints=""
         android:hint="@string/email_address"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_name"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
 
     <com.example.proyekakhirstoryapp.ui.views.PasswordForm
         android:id="@+id/ed_register_password"
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="4dp"
         android:text="@string/have_account"
         app:layout_constraintEnd_toStartOf="@+id/tv_to_login"
         app:layout_constraintTop_toBottomOf="@+id/btn_register" />
@@ -93,7 +93,7 @@
         android:text="@string/to_login"
         app:layout_constraintBottom_toBottomOf="@+id/tv_have_acc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_have_acc" />
 
