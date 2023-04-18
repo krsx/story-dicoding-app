@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(application: Application) : ViewModel() {
+class LoginViewModel(mApplication: Application) : ViewModel() {
     var errorResponse: String = ""
     var error: String = ""
 

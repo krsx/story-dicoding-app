@@ -3,18 +3,13 @@ package com.example.proyekakhirstoryapp.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import com.example.proyekakhirstoryapp.R
-import com.example.proyekakhirstoryapp.data.api.response.LoginResult
 import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
-import com.example.proyekakhirstoryapp.databinding.ActivityMainBinding
 import com.example.proyekakhirstoryapp.ui.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.register.RegisterActivity
-import com.example.proyekakhirstoryapp.ui.screens.MainActivity
+import com.example.proyekakhirstoryapp.ui.home.MainActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel by viewModels<LoginViewModel>() {
@@ -38,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.user.observe(this) { user ->
             if (user?.token != null) {
                 val intentMain = Intent(this@LoginActivity, MainActivity::class.java)
+
                 startActivity(intentMain)
             }
         }
@@ -47,8 +43,4 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginUser(email, password)
     }
 
-
-//    private fun getLoginData(user: LoginResult?) {
-//
-//    }
 }

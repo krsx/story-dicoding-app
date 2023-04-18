@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
+import com.example.proyekakhirstoryapp.ui.register.RegisterViewModel
 
 class ViewModelFactory constructor(private val mAplication: Application) :
     ViewModelProvider.NewInstanceFactory() {
@@ -25,6 +26,8 @@ class ViewModelFactory constructor(private val mAplication: Application) :
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(mAplication) as T
+        } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
+            return RegisterViewModel(mAplication) as T
         }
         throw java.lang.IllegalArgumentException("Unkown ViewModel class: ${modelClass.name}")
     }
