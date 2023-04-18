@@ -1,5 +1,6 @@
 package com.example.proyekakhirstoryapp.ui.login
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel() : ViewModel() {
+class LoginViewModel(application: Application) : ViewModel() {
     var errorResponse: String = ""
     var error: String = ""
 
