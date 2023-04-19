@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.proyekakhirstoryapp.data.api.response.RegisterResponse
+import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiConfig
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
 import retrofit2.Call
@@ -30,10 +30,10 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
         _isLoading.value = true
         val client = userRepository.registerLogin(name, email, password)
         client.enqueue(
-            object : Callback<RegisterResponse> {
+            object : Callback<DefaultResponse> {
                 override fun onResponse(
-                    call: Call<RegisterResponse>,
-                    response: Response<RegisterResponse>
+                    call: Call<DefaultResponse>,
+                    response: Response<DefaultResponse>
                 ) {
                     _isLoading.value = false
                     if (response.isSuccessful) {
@@ -44,7 +44,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
                     }
                 }
 
-                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                     _isLoading.value = false
                     error = "On failure ${t.message.toString()}"
                     Log.e(TAG, error)

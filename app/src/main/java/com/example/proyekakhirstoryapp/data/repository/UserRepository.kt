@@ -2,8 +2,8 @@ package com.example.proyekakhirstoryapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
-import com.example.proyekakhirstoryapp.data.api.response.RegisterResponse
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiService
 import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import retrofit2.Call
@@ -16,7 +16,7 @@ class UserRepository(
         return apiService.loginUser(email, password)
     }
 
-    fun registerLogin(name: String, email: String, password: String): Call<RegisterResponse> {
+    fun registerLogin(name: String, email: String, password: String): Call<DefaultResponse> {
         return apiService.registerUser(name, email, password)
     }
 

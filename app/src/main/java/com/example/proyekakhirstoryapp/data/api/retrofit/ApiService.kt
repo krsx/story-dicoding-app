@@ -1,7 +1,8 @@
 package com.example.proyekakhirstoryapp.data.api.retrofit
 
+import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
+import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
-import com.example.proyekakhirstoryapp.data.api.response.RegisterResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -14,7 +15,7 @@ interface ApiService {
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<RegisterResponse>
+    ): Call<DefaultResponse>
 
     @FormUrlEncoded
     @POST("login")
@@ -23,19 +24,20 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
-    @Multipart
-    @Headers("Authorization : Bearer<token>")
-    @POST("/stories")
-    fun addStories(
+    @GET("stories")
+    fun getAllStories(
+        @Query("location") location: Int = 0,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+    ): Call<ListStoryItem>
 
+
+    @Multipart
+    @POST("stories")
+    fun addStory(
         @Part photo: MultipartBody.Part,
         @Part("description") description: RequestBody,
-    ): Call<RegisterResponse>
-
-//    @GET("/stories")
-//    @Headers("Authorization: Bearer <${T}>")
-//    fun getAllStories(
-//
-//    )
-
+        @Part("lat") lat: Float? = null,
+        @Part("lon") lon: Float? = null,
+    ): Call<DefaultResponse>
 }
