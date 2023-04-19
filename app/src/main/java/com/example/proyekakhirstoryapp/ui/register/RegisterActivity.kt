@@ -9,17 +9,19 @@ import com.example.proyekakhirstoryapp.databinding.ActivityRegisterBinding
 import com.example.proyekakhirstoryapp.ui.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.login.LoginActivity
 import com.example.proyekakhirstoryapp.ui.home.MainActivity
+import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private val registerViewModel by viewModels<RegisterViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private lateinit var factory: ViewModelFactory
+    private val registerViewModel: RegisterViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        factory = ViewModelFactory.getInstance(this)
 
         binding.tvToLogin.setOnClickListener {
             val intentLogin = Intent(this@RegisterActivity, LoginActivity::class.java)

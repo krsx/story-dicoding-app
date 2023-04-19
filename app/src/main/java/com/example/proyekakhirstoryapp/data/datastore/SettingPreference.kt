@@ -7,15 +7,15 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserPreferences constructor(private val dataStore: DataStore<Preferences>) {
+class SettingPreference constructor(private val dataStore: DataStore<Preferences>) {
     companion object {
         @Volatile
 
-        private var INSTANCE: UserPreferences? = null
+        private var INSTANCE: SettingPreference? = null
 
-        fun getInstance(dataStore: DataStore<Preferences>): UserPreferences {
+        fun getInstance(dataStore: DataStore<Preferences>): SettingPreference {
             return INSTANCE ?: synchronized(this) {
-                val instance = UserPreferences(dataStore)
+                val instance = SettingPreference(dataStore)
                 INSTANCE = instance
                 instance
             }
@@ -35,5 +35,7 @@ class UserPreferences constructor(private val dataStore: DataStore<Preferences>)
             preferences[USER_TOKEN_KEY] ?: ""
         }
     }
+
+
 
 }

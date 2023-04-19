@@ -5,35 +5,29 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
-import com.example.proyekakhirstoryapp.data.datastore.UserPreferences
+import androidx.activity.viewModels
 import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
 import com.example.proyekakhirstoryapp.ui.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.register.RegisterActivity
 import com.example.proyekakhirstoryapp.ui.home.MainActivity
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_token")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
 class LoginActivity() : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-
+    private lateinit var factory: ViewModelFactory
+    private val loginViewModel: LoginViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pref = UserPreferences.getInstance(dataStore)
-        val loginViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(application, pref)
-        )[LoginViewModel::class.java]
-
+        factory = ViewModelFactory.getInstance(this)
 
         binding.tvToRegister.setOnClickListener {
             val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)

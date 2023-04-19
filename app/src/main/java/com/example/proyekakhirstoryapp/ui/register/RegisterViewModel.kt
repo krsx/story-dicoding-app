@@ -7,11 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyekakhirstoryapp.data.api.response.RegisterResponse
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiConfig
+import com.example.proyekakhirstoryapp.data.repository.UserRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterViewModel(mApplication: Application) : ViewModel() {
+class RegisterViewModel(private val userRepository: UserRepository) : ViewModel() {
     var errorResponse: String = ""
     var error: String = ""
 
@@ -27,7 +28,7 @@ class RegisterViewModel(mApplication: Application) : ViewModel() {
 
     fun registerUser(name: String, email: String, password: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().registerUser(name, email, password)
+        val client = userRepository.registerLogin(name, email, password)
         client.enqueue(
             object : Callback<RegisterResponse> {
                 override fun onResponse(
@@ -39,14 +40,14 @@ class RegisterViewModel(mApplication: Application) : ViewModel() {
                         _user.value = response.body()?.message
                     } else {
                         errorResponse = "On failure ${response.message()} + ${response.code()}"
-                        Log.e(RegisterViewModel.TAG, errorResponse)
+                        Log.e(TAG, errorResponse)
                     }
                 }
 
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                     _isLoading.value = false
                     error = "On failure ${t.message.toString()}"
-                    Log.e(RegisterViewModel.TAG, error)
+                    Log.e(TAG, error)
                 }
 
             }

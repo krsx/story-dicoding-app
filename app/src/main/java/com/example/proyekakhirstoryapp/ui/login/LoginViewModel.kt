@@ -6,13 +6,14 @@ import androidx.lifecycle.*
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.response.LoginResult
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiConfig
-import com.example.proyekakhirstoryapp.data.datastore.UserPreferences
+import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
+import com.example.proyekakhirstoryapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(mApplication: Application, private val pref: UserPreferences) : ViewModel() {
+class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
     var errorResponse: String = ""
     var error: String = ""
 
@@ -28,7 +29,7 @@ class LoginViewModel(mApplication: Application, private val pref: UserPreference
 
     fun loginUser(email: String, password: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().loginUser(email, password)
+        val client = userRepository.userLogin(email, password)
         client.enqueue(
             object : Callback<LoginResponse> {
                 override fun onResponse(
@@ -54,13 +55,4 @@ class LoginViewModel(mApplication: Application, private val pref: UserPreference
         )
     }
 
-    fun getUserToken(): LiveData<String> {
-        return pref.getUserToken().asLiveData()
-    }
-
-    fun saveUserToken(token: String) {
-        viewModelScope.launch {
-            pref.saveUserToken(token)
-        }
-    }
 }

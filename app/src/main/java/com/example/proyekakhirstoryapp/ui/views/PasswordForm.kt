@@ -57,9 +57,9 @@ class PasswordForm : AppCompatEditText, OnTouchListener {
                 if (p0.toString().isNotEmpty()) showShowPasswordButton() else hideDrawables()
 
                 if (p0.toString().length <= 8) {
-                    setError("Masukkan minimal 8 karakter")
-                } else if (p0.toString().isNullOrEmpty()) {
-                    setError(null)
+                    error = "Masukkan minimal 8 karakter"
+                } else if (p0.toString().isEmpty()) {
+                    error = null
                 }
             }
 

@@ -1,16 +1,18 @@
 package com.example.proyekakhirstoryapp.ui
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.proyekakhirstoryapp.data.datastore.UserPreferences
+import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
+import com.example.proyekakhirstoryapp.data.repository.UserRepository
 
 import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
 import com.example.proyekakhirstoryapp.ui.register.RegisterViewModel
+import com.example.proyekakhirstoryapp.utils.Injection
 
-class ViewModelFactory constructor(
-    private val mApplication: Application,
-    private val pref: UserPreferences? = null
+class ViewModelFactory private constructor(
+    private val userRepository: UserRepository
 ) :
     ViewModelProvider.NewInstanceFactory() {
     companion object {
@@ -18,22 +20,24 @@ class ViewModelFactory constructor(
         private var INSTANCE: ViewModelFactory? = null
 
         @JvmStatic
-        fun getInstance(application: Application): ViewModelFactory {
-            if (INSTANCE == null) {
-                synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(application)
-                }
-            }
-            return INSTANCE as ViewModelFactory
-        }
+        fun getInstance(context: Context): ViewModelFactory =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: ViewModelFactory(
+                    Injection.provideUserRepository(context)
+                )
+            }.also { INSTANCE = it }
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return pref?.let { LoginViewModel(mApplication, it) } as T
-        } else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-            return RegisterViewModel(mApplication) as T
+        @Suppress("UNCHECKED_CAST")
+        return when {
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(
+                userRepository
+            ) as T
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> RegisterViewModel(
+                userRepository
+            ) as T
+            else -> throw java.lang.IllegalArgumentException("Unkown ViewModel class: ${modelClass.name}")
         }
-        throw java.lang.IllegalArgumentException("Unkown ViewModel class: ${modelClass.name}")
     }
 }
