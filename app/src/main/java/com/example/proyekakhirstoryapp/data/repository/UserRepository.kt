@@ -3,6 +3,7 @@ package com.example.proyekakhirstoryapp.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
+import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiService
 import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
@@ -26,6 +27,10 @@ class UserRepository(
 
     suspend fun saveUserToken(token:String){
         return pref.saveUserToken(token)
+    }
+
+    fun getAllStories(token: String): Call<ListStoryItem>{
+        return apiService.getAllStories("bearer $token")
     }
 
     companion object {

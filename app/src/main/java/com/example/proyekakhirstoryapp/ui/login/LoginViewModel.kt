@@ -1,12 +1,9 @@
 package com.example.proyekakhirstoryapp.ui.login
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.response.LoginResult
-import com.example.proyekakhirstoryapp.data.api.retrofit.ApiConfig
-import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -16,10 +13,6 @@ import retrofit2.Response
 class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
     var errorResponse: String = ""
     var error: String = ""
-
-    companion object {
-        private const val TAG = "LoginViewModel"
-    }
 
     private val _user = MutableLiveData<LoginResult?>()
     val user: LiveData<LoginResult?> = _user
@@ -39,6 +32,7 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
                     _isLoading.value = false
                     if (response.isSuccessful) {
                         _user.value = response.body()?.loginResult
+                        saveUserToken(_user.value?.token)
                     } else {
                         errorResponse = "On failure ${response.message()} + ${response.code()}"
                         Log.e(TAG, errorResponse)
@@ -53,6 +47,18 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
 
             }
         )
+    }
+
+    fun saveUserToken(token: String?) {
+        viewModelScope.launch {
+            if (token != null) {
+                userRepository.saveUserToken(token)
+            }
+        }
+    }
+
+    companion object {
+        private const val TAG = "LoginViewModel"
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.proyekakhirstoryapp.ui.login
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,7 @@ class LoginActivity() : AppCompatActivity() {
             if (user?.token != null) {
                 val intentMain = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intentMain)
+                finish()
             }
         }
 
