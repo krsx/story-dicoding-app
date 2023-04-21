@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
 import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
+import com.example.proyekakhirstoryapp.data.api.response.StoriesResponse
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiService
 import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import retrofit2.Call
@@ -29,7 +30,7 @@ class UserRepository(
         return pref.saveUserToken(token)
     }
 
-    fun getAllStories(token: String): Call<ListStoryItem>{
+    fun getAllStories(token: String): Call<StoriesResponse> {
         return apiService.getAllStories("bearer $token")
     }
 

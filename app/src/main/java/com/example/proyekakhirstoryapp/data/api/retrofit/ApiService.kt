@@ -3,6 +3,7 @@ package com.example.proyekakhirstoryapp.data.api.retrofit
 import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
 import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
+import com.example.proyekakhirstoryapp.data.api.response.StoriesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -30,7 +31,7 @@ interface ApiService {
         @Query("location") location: Int = 0,
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null,
-    ): Call<ListStoryItem>
+    ): Call<StoriesResponse>
 
     @Multipart
     @POST("stories")
