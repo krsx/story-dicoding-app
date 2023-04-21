@@ -57,6 +57,10 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
+    fun getUserToken(): LiveData<String>{
+        return userRepository.getUserToken()
+    }
+
     companion object {
         private const val TAG = "LoginViewModel"
     }

@@ -25,10 +25,18 @@ class LoginActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         factory = ViewModelFactory.getInstance(this)
+
+        loginViewModel.getUserToken().observe(this) { token ->
+            if (token != null) {
+                val intentToHome = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intentToHome)
+            }
+        }
 
         binding.tvToRegister.setOnClickListener {
             val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
