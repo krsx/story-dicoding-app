@@ -36,6 +36,7 @@ interface ApiService {
     @Multipart
     @POST("stories")
     fun addStory(
+        @Header("Authorization") token: String,
         @Part photo: MultipartBody.Part,
         @Part("description") description: RequestBody,
         @Part("lat") lat: Float? = null,

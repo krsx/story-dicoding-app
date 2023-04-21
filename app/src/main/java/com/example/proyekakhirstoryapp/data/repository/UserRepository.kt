@@ -8,6 +8,8 @@ import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.response.StoriesResponse
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiService
 import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 
 class UserRepository(
@@ -26,12 +28,19 @@ class UserRepository(
         return pref.getUserToken().asLiveData()
     }
 
-    suspend fun saveUserToken(token:String){
+    suspend fun saveUserToken(token: String) {
         return pref.saveUserToken(token)
     }
 
     fun getAllStories(token: String): Call<StoriesResponse> {
         return apiService.getAllStories("bearer $token")
+    }
+
+    fun addStory(
+        photo: MultipartBody.Part, description: RequestBody, token: String, lat: Float? = null,
+        lon: Float? = null
+    ): Call<DefaultResponse> {
+        return apiService.addStory(token, photo, description, lat, lon)
     }
 
     companion object {
