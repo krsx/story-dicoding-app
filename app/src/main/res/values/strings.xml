@@ -13,5 +13,10 @@
     <string name="no_account">Belum punya akun?</string>
     <string name="to_register">Daftar disini</string>
     <string name="logout">Logout</string>
+    <string name="add_story">tambah story</string>
+    <string name="photo_story_card">story foto</string>
+    <string name="story_desc">Deskripsi Story</string>
+    <string name="story_created_at">dibuat pada $s</string>
+
 
 </resources>
