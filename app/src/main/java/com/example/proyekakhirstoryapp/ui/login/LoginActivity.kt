@@ -32,6 +32,14 @@ class LoginActivity() : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loginViewModel.getUserToken().observe(this) { token ->
+            if (token != "") {
+                val intentToHome = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intentToHome)
+                finish()
+            }
+        }
+
         binding.tvToRegister.setOnClickListener {
             val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intentRegister)
@@ -55,14 +63,6 @@ class LoginActivity() : AppCompatActivity() {
         loginViewModel.isLoading.observe(this) {
             showLoading(it)
         }
-
-//        loginViewModel.getUserToken().observe(this) { token ->
-//            if (token.isNullOrEmpty() || token == "") {
-//                val intentToHome = Intent(this@LoginActivity, MainActivity::class.java)
-//                startActivity(intentToHome)
-//                finish()
-//            }
-//        }
     }
 
     private fun showLoading(isLoading: Boolean) {
