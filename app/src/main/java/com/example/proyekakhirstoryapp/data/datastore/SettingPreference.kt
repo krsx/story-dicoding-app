@@ -36,6 +36,9 @@ class SettingPreference constructor(private val dataStore: DataStore<Preferences
         }
     }
 
-
-
+    suspend fun clearCache() {
+        dataStore.edit {
+            it.clear()
+        }
+    }
 }

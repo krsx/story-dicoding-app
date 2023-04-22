@@ -13,5 +13,7 @@ class AddStoryActivity : AppCompatActivity() {
 
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.proyekakhirstoryapp.ui.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +13,7 @@ import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.databinding.ActivityMainBinding
 import com.example.proyekakhirstoryapp.ui.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.home.adapter.ListStoryAdapter
+import com.example.proyekakhirstoryapp.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -58,7 +60,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.btn_logout -> {
-
+                mainViewModel.logout()
+                val intentToLogin = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intentToLogin)
+                finish()
             }
         }
         return super.onOptionsItemSelected(item)

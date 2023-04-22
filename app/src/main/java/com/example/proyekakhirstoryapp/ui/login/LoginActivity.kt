@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -26,17 +27,10 @@ class LoginActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         factory = ViewModelFactory.getInstance(this)
 
-        loginViewModel.getUserToken().observe(this) { token ->
-            if (token != null) {
-                val intentToHome = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intentToHome)
-            }
-        }
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.tvToRegister.setOnClickListener {
             val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
@@ -61,6 +55,14 @@ class LoginActivity() : AppCompatActivity() {
         loginViewModel.isLoading.observe(this) {
             showLoading(it)
         }
+
+//        loginViewModel.getUserToken().observe(this) { token ->
+//            if (token.isNullOrEmpty() || token == "") {
+//                val intentToHome = Intent(this@LoginActivity, MainActivity::class.java)
+//                startActivity(intentToHome)
+//                finish()
+//            }
+//        }
     }
 
     private fun showLoading(isLoading: Boolean) {

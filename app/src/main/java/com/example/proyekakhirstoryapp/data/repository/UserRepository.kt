@@ -24,6 +24,10 @@ class UserRepository(
         return apiService.registerUser(name, email, password)
     }
 
+    suspend fun logout(){
+        return pref.clearCache()
+    }
+
     fun getUserToken(): LiveData<String> {
         return pref.getUserToken().asLiveData()
     }
