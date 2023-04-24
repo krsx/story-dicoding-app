@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.addstory.CameraActivity">
 
-    <View
+    <androidx.camera.view.PreviewView
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -19,7 +19,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_camera_alt_24" />
+        app:srcCompat="@drawable/ic_camera_alt_24"
+        android:contentDescription="@string/btn_camera" />
 
     <ImageView
         android:id="@+id/switchCamera"
@@ -29,6 +30,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="@+id/viewFinder"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_cameraswitch_24" />
+        app:srcCompat="@drawable/ic_cameraswitch_24"
+        android:contentDescription="@string/btn_switch_camera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

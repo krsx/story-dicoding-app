@@ -12,6 +12,7 @@ import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.databinding.ActivityMainBinding
 import com.example.proyekakhirstoryapp.ui.ViewModelFactory
+import com.example.proyekakhirstoryapp.ui.addstory.AddStoryActivity
 import com.example.proyekakhirstoryapp.ui.home.adapter.ListStoryAdapter
 import com.example.proyekakhirstoryapp.ui.login.LoginActivity
 
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+
+        binding.fabAddStory.setOnClickListener{
+            val intentToCamera = Intent(this, AddStoryActivity::class.java)
+            startActivity(intentToCamera)
         }
     }
 

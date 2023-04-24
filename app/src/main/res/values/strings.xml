@@ -21,6 +21,9 @@
     <string name="add_story_photo">Foto story</string>
     <string name="gallery">Galeri</string>
     <string name="camera">Camera</string>
+    <string name="btn_camera">Tombol kamera</string>
+    <string name="btn_switch_camera">Tombol ganti kamera</string>
+    <string name="add_story">Tombol tambah story</string>
 
 
 </resources>
