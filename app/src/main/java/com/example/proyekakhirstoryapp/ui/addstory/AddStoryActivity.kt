@@ -3,13 +3,17 @@ package com.example.proyekakhirstoryapp.ui.addstory
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityAddStoryBinding
+import com.example.proyekakhirstoryapp.utils.rotateFile
+import java.io.File
 
 class AddStoryActivity : AppCompatActivity() {
 
@@ -28,9 +32,9 @@ class AddStoryActivity : AppCompatActivity() {
             )
         }
 
-        binding.btnCamera.setOnClickListener{
+        binding.btnCamera.setOnClickListener {
             val intentToCamera = Intent(this, CameraActivity::class.java)
-            startActivity(intentToCamera)
+            launcherIntentCameraX.launch(intentToCamera)
         }
     }
 
@@ -55,6 +59,27 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private val launcherIntentCameraX = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == CAMERA_X_RESULT) {
+            val myFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.data?.getSerializableExtra(CameraActivity.KEY_PHOTO, File::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                it.data?.getSerializableExtra(CameraActivity.KEY_PHOTO)
+            } as? File
+
+            val isBackCamera =
+                it.data?.getBooleanExtra(CameraActivity.KEY_CAMERA_STATUS, true) as Boolean
+
+            myFile?.let { file ->
+                rotateFile(file, isBackCamera)
+                binding.previewImage.setImageBitmap(BitmapFactory.decodeFile(file.path))
+            }
+        }
     }
 
     companion object {
