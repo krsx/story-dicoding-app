@@ -1,18 +1,16 @@
 package com.example.proyekakhirstoryapp.ui.login
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.activity.viewModels
 import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
-import com.example.proyekakhirstoryapp.ui.ViewModelFactory
+import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.register.RegisterActivity
 import com.example.proyekakhirstoryapp.ui.home.MainActivity
 

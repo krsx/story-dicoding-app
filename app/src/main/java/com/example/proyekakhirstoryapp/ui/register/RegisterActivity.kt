@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import com.example.proyekakhirstoryapp.databinding.ActivityRegisterBinding
-import com.example.proyekakhirstoryapp.ui.ViewModelFactory
+import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.login.LoginActivity
-import com.example.proyekakhirstoryapp.ui.home.MainActivity
-import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding

@@ -2,8 +2,10 @@ package com.example.proyekakhirstoryapp.ui.addstory
 
 import android.Manifest
 import android.content.Intent
+import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.databinding.ActivityAddStoryBinding
 import com.example.proyekakhirstoryapp.utils.rotateFile
+import com.example.proyekakhirstoryapp.utils.uriToFile
 import java.io.File
 
 class AddStoryActivity : AppCompatActivity() {
@@ -33,9 +36,17 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
         binding.btnCamera.setOnClickListener {
-            val intentToCamera = Intent(this, CameraActivity::class.java)
-            launcherIntentCameraX.launch(intentToCamera)
+            startCamera()
         }
+
+        binding.btnGallery.setOnClickListener {
+            startGallery()
+        }
+    }
+
+    private fun startCamera() {
+        val intentToCamera = Intent(this, CameraActivity::class.java)
+        launcherIntentCameraX.launch(intentToCamera)
     }
 
     override fun onRequestPermissionsResult(
@@ -88,6 +99,26 @@ class AddStoryActivity : AppCompatActivity() {
                 binding.previewImage.setImageBitmap(BitmapFactory.decodeFile(file.path))
             }
         }
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg = result.data?.data as Uri
+            selectedImg.let { uri ->
+                val myFile = uriToFile(uri, this@AddStoryActivity)
+                binding.previewImage.setImageURI(uri)
+            }
+        }
+    }
+
+    private fun startGallery() {
+        val intent = Intent()
+        intent.action = ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
     }
 
     companion object {

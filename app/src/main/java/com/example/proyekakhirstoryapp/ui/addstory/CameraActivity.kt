@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -26,6 +27,7 @@ class CameraActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.captureImage.setOnClickListener {
+            showLoading(true)
             takePhoto()
         }
 
@@ -63,9 +65,7 @@ class CameraActivity : AppCompatActivity() {
                 )
             } catch (exc: Exception) {
                 Toast.makeText(
-                    this@CameraActivity,
-                    "Gagal memunculkan kamera.",
-                    Toast.LENGTH_SHORT
+                    this@CameraActivity, "Gagal memunculkan kamera", Toast.LENGTH_SHORT
                 ).show()
             }
         }, ContextCompat.getMainExecutor(this))
@@ -77,15 +77,12 @@ class CameraActivity : AppCompatActivity() {
         val photoFile = createFile(application)
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-        imageCapture.takePicture(
-            outputOptions,
+        imageCapture.takePicture(outputOptions,
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
+                        this@CameraActivity, "Gagal mengambil story", Toast.LENGTH_SHORT
                     ).show()
                 }
 
@@ -93,21 +90,24 @@ class CameraActivity : AppCompatActivity() {
                     val intentToAddStory = Intent()
                     intentToAddStory.putExtra(KEY_PHOTO, photoFile)
                     intentToAddStory.putExtra(
-                        KEY_CAMERA_STATUS,
-                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                        KEY_CAMERA_STATUS, cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
                     )
+
+                    Toast.makeText(
+                        this@CameraActivity, "Berhasil menambahkan story", Toast.LENGTH_LONG
+                    ).show()
+
+                    showLoading(false)
 
                     setResult(AddStoryActivity.CAMERA_X_RESULT, intentToAddStory)
                     finish()
                 }
-            }
-        )
+            })
 
     }
 
     private fun hideSystemUI() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             window.setFlags(
@@ -121,5 +121,9 @@ class CameraActivity : AppCompatActivity() {
     companion object {
         const val KEY_PHOTO = "photo"
         const val KEY_CAMERA_STATUS = "isBackCamera"
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

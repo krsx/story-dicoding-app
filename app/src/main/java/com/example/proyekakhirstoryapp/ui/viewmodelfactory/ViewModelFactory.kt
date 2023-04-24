@@ -1,11 +1,10 @@
-package com.example.proyekakhirstoryapp.ui
+package com.example.proyekakhirstoryapp.ui.viewmodelfactory
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
+import com.example.proyekakhirstoryapp.ui.addstory.AddStoryViewModel
 import com.example.proyekakhirstoryapp.ui.home.MainViewModel
 
 import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
@@ -39,6 +38,9 @@ class ViewModelFactory private constructor(
                 userRepository
             ) as T
             modelClass.isAssignableFrom(MainViewModel::class.java) -> MainViewModel(
+                userRepository
+            ) as T
+            modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> AddStoryViewModel(
                 userRepository
             ) as T
             else -> throw java.lang.IllegalArgumentException("Unkown ViewModel class: ${modelClass.name}")

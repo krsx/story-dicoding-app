@@ -24,6 +24,5 @@
     <string name="btn_camera">Tombol kamera</string>
     <string name="btn_switch_camera">Tombol ganti kamera</string>
     <string name="add_story">Tombol tambah story</string>
-
-
+    <string name="send_story">Kirim</string>
 </resources>
