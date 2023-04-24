@@ -64,16 +64,24 @@ class AddStoryActivity : AppCompatActivity() {
     private val launcherIntentCameraX = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
+
         if (it.resultCode == CAMERA_X_RESULT) {
             val myFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    it.data?.getSerializableExtra(CameraActivity.KEY_PHOTO, File::class.java)
+                it.data?.getSerializableExtra(KEY_PHOTO, File::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                it.data?.getSerializableExtra(CameraActivity.KEY_PHOTO)
+                it.data?.getSerializableExtra(KEY_PHOTO)
             } as? File
 
+            Toast.makeText(
+                this,
+                "${it.data}",
+                Toast.LENGTH_SHORT
+            ).show()
+
             val isBackCamera =
-                it.data?.getBooleanExtra(CameraActivity.KEY_CAMERA_STATUS, true) as Boolean
+                it.data?.getBooleanExtra(KEY_CAMERA_STATUS, true) as Boolean
+
 
             myFile?.let { file ->
                 rotateFile(file, isBackCamera)
@@ -84,9 +92,11 @@ class AddStoryActivity : AppCompatActivity() {
 
     companion object {
         const val CAMERA_X_RESULT = 200
-
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
+
+        const val KEY_PHOTO = "photo"
+        const val KEY_CAMERA_STATUS = "isBackCamera"
     }
 
 }

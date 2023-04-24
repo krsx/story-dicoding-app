@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.databinding.ActivityCameraBinding
 import com.example.proyekakhirstoryapp.utils.createFile
 
-
 class CameraActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCameraBinding
@@ -31,7 +30,7 @@ class CameraActivity : AppCompatActivity() {
         }
 
         binding.switchCamera.setOnClickListener {
-            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+            cameraSelector = if (cameraSelector.equals(CameraSelector.DEFAULT_BACK_CAMERA)) {
                 CameraSelector.DEFAULT_FRONT_CAMERA
             } else {
                 CameraSelector.DEFAULT_BACK_CAMERA
@@ -45,6 +44,7 @@ class CameraActivity : AppCompatActivity() {
         hideSystemUI()
         startCamera()
     }
+
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -62,15 +62,11 @@ class CameraActivity : AppCompatActivity() {
                     this, cameraSelector, preview, imageCapture,
                 )
             } catch (exc: Exception) {
-                if (exc.message?.contains("BufferQueue has been abandoned") == true) {
-                    startCamera()
-                } else {
-                    Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal memunculkan kamera.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                Toast.makeText(
+                    this@CameraActivity,
+                    "Gagal memunculkan kamera.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }, ContextCompat.getMainExecutor(this))
     }
@@ -95,8 +91,8 @@ class CameraActivity : AppCompatActivity() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val intentToAddStory = Intent()
-                    intent.putExtra(KEY_PHOTO, photoFile)
-                    intent.putExtra(
+                    intentToAddStory.putExtra(KEY_PHOTO, photoFile)
+                    intentToAddStory.putExtra(
                         KEY_CAMERA_STATUS,
                         cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
                     )
