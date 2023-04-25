@@ -9,6 +9,7 @@ import com.example.proyekakhirstoryapp.ui.home.MainViewModel
 
 import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
 import com.example.proyekakhirstoryapp.ui.register.RegisterViewModel
+import com.example.proyekakhirstoryapp.ui.settings.SettingsViewModel
 import com.example.proyekakhirstoryapp.utils.Injection
 
 class ViewModelFactory private constructor(
@@ -41,6 +42,9 @@ class ViewModelFactory private constructor(
                 userRepository
             ) as T
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> AddStoryViewModel(
+                userRepository
+            ) as T
+            modelClass.isAssignableFrom(SettingsViewModel::class.java) -> SettingsViewModel(
                 userRepository
             ) as T
             else -> throw java.lang.IllegalArgumentException("Unkown ViewModel class: ${modelClass.name}")

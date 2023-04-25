@@ -24,7 +24,6 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-
     fun getAllStories(token: String) {
         _isLoading.value = true
         val client = userRepository.getAllStories(token)
@@ -58,11 +57,7 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
         return userRepository.getUserToken()
     }
 
-    fun logout() {
-        viewModelScope.launch {
-            userRepository.logout()
-        }
-    }
+
 
     companion object {
         private const val TAG = "MainViewModel"

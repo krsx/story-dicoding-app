@@ -11,45 +11,34 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.databinding.ActivityMainBinding
+import com.example.proyekakhirstoryapp.ui.settings.SettingsActivity
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.addstory.AddStoryActivity
 import com.example.proyekakhirstoryapp.ui.home.adapter.ListStoryAdapter
-import com.example.proyekakhirstoryapp.ui.login.LoginActivity
-import java.io.File
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
     private lateinit var factory: ViewModelFactory
     private val mainViewModel: MainViewModel by viewModels { factory }
-    private var getFile: File? = null
+
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         factory = ViewModelFactory.getInstance(this)
 
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvStories.layoutManager = layoutManager
-
-        mainViewModel.getUserToken().observe(this) { token ->
-            mainViewModel.getAllStories(token)
-
-            mainViewModel.stories.observe(this) { stories ->
-                if (stories != null) {
-                    setStoriesData(stories)
-                }
-            }
-        }
+        initRecyclerView()
 
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
         binding.fabAddStory.setOnClickListener{
-            val intentToCamera = Intent(this, AddStoryActivity::class.java)
-            startActivity(intentToCamera)
+            val intentToAddStory = Intent(this, AddStoryActivity::class.java)
+            startActivity(intentToAddStory)
         }
     }
 
@@ -67,14 +56,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.btn_logout -> {
-                mainViewModel.logout()
-                val intentToLogin = Intent(this@MainActivity, LoginActivity::class.java)
-                startActivity(intentToLogin)
-                finish()
+            R.id.btn_settings -> {
+                val intentToSettings = Intent(this, SettingsActivity::class.java)
+                startActivity(intentToSettings)
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initRecyclerView(){
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvStories.layoutManager = layoutManager
+
+        mainViewModel.getUserToken().observe(this) { token ->
+            mainViewModel.getAllStories(token)
+
+            mainViewModel.stories.observe(this) { stories ->
+                if (stories != null) {
+                    setStoriesData(stories)
+                }
+            }
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

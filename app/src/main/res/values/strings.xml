@@ -14,7 +14,7 @@
 
     <string name="no_account">Belum punya akun?</string>
     <string name="to_register">Daftar disini</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Keluar</string>
     <string name="register_success">Daftar akun berhasil</string>
     <string name="register_failed">Daftar akun gagal</string>
 
@@ -29,4 +29,7 @@
     <string name="btn_switch_camera">Tombol ganti kamera</string>
     <string name="add_story">Tombol tambah story</string>
     <string name="send_story">Kirim</string>
+    <string name="language_settings">Atur bahasa</string>
+    <string name="pilih_bahasa">Pilih bahasa</string>
+    <string name="settings">settings</string>
 </resources>
