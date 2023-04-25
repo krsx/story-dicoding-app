@@ -18,7 +18,7 @@ import com.example.proyekakhirstoryapp.ui.home.MainActivity
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting")
 
-class LoginActivity() : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private var _binding: ActivityLoginBinding? = null
     private lateinit var factory: ViewModelFactory
@@ -39,11 +39,6 @@ class LoginActivity() : AppCompatActivity() {
                 startActivity(intentToHome)
                 finish()
             }
-        }
-
-        binding.tvToRegister.setOnClickListener {
-            val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
-            startActivity(intentRegister)
         }
 
         binding.btnLogin.setOnClickListener {
@@ -71,15 +66,21 @@ class LoginActivity() : AppCompatActivity() {
                             }
                         }
                     } else {
-                        val msg = getString(R.string.wrong_credential)
-                        displayToast(msg)
-                        binding.edLoginPassword.apply {
-                            text?.clear()
+                        loginViewModel.message.observe(this) { message ->
+                            val msg = getString(R.string.wrong_credential)
+                            displayToast("$message : $msg")
+                            binding.edLoginPassword.apply {
+                                text?.clear()
+                            }
                         }
                     }
                 }
             }
+        }
 
+        binding.tvToRegister.setOnClickListener {
+            val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intentRegister)
         }
 
         loginViewModel.isLoading.observe(this) {
@@ -88,10 +89,10 @@ class LoginActivity() : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading){
+        if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
             binding.btnLogin.isEnabled = false
-        }else{
+        } else {
             binding.progressBar.visibility = View.GONE
             binding.btnLogin.isEnabled = true
         }

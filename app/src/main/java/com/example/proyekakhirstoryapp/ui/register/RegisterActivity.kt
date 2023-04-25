@@ -5,26 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
 import com.example.proyekakhirstoryapp.databinding.ActivityRegisterBinding
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRegisterBinding
+
+    private var _binding: ActivityRegisterBinding? = null
     private lateinit var factory: ViewModelFactory
     private val registerViewModel: RegisterViewModel by viewModels { factory }
 
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         factory = ViewModelFactory.getInstance(this)
 
-        binding.tvToLogin.setOnClickListener {
-            val intentLogin = Intent(this@RegisterActivity, LoginActivity::class.java)
-            startActivity(intentLogin)
-        }
+        _binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.btnRegister.setOnClickListener {
             userRegister(
@@ -43,6 +42,11 @@ class RegisterActivity : AppCompatActivity() {
 
         registerViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+
+        binding.tvToLogin.setOnClickListener {
+            val intentToLogin = Intent(this@RegisterActivity, LoginActivity::class.java)
+            startActivity(intentToLogin)
         }
     }
 
