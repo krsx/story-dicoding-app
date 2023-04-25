@@ -4,8 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
+import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityRegisterBinding
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.login.LoginActivity
@@ -26,19 +27,42 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnRegister.setOnClickListener {
-            userRegister(
-                binding.edRegisterName.text.toString(),
-                binding.edRegisterEmail.text.toString(),
-                binding.edRegisterPassword.text.toString()
-            )
-        }
 
-        registerViewModel.user.observe(this) { user ->
-            if (user == "User created") {
-                val intentLogin = Intent(this@RegisterActivity, LoginActivity::class.java)
-                startActivity(intentLogin)
+            val name = binding.edRegisterName.text.toString()
+            val email = binding.edRegisterEmail.text.toString()
+            val password = binding.edRegisterPassword.text.toString()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                val msg = getString(R.string.fill_field)
+                displayToast(msg)
+            } else {
+                userRegister(
+                    name, email, password
+                )
+
+                registerViewModel.error.observe(this) { error ->
+                    if (!error) {
+                        registerViewModel.user.observe(this) { user ->
+                            if (user == "User created") {
+                                val msg = getString(R.string.register_success)
+                                displayToast(msg)
+
+                                val intentLogin =
+                                    Intent(this@RegisterActivity, LoginActivity::class.java)
+                                startActivity(intentLogin)
+                            }
+                        }
+                    } else {
+                        registerViewModel.message.observe(this) { message ->
+                            val msg = getString(R.string.register_failed)
+                            displayToast("$message : $msg")
+                        }
+                    }
+                }
+
             }
         }
+
 
         registerViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -55,8 +79,16 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) {
-            View.VISIBLE
-        } else View.GONE
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.btnRegister.isEnabled = false
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.btnRegister.isEnabled = true
+        }
+    }
+
+    private fun displayToast(msg: String) {
+        return Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 }
