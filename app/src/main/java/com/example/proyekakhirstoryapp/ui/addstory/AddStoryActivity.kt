@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -31,7 +32,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var factory: ViewModelFactory
-    private val addStoryviewModel: AddStoryViewModel by viewModels { factory }
+    private val addStoryViewModel: AddStoryViewModel by viewModels { factory }
     private var getFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,10 +72,9 @@ class AddStoryActivity : AppCompatActivity() {
                     requestImageFile
                 )
 
-                addStoryviewModel.getUserToken().observe(this) { token ->
+                addStoryViewModel.getUserToken().observe(this) { token ->
                     uploadStory(imageMultipart, desc, "bearer $token")
                 }
-
             } else {
                 Toast.makeText(
                     this,
@@ -82,6 +82,10 @@ class AddStoryActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        addStoryViewModel.isLoading.observe(this) {
+            showLoading(it)
         }
     }
 
@@ -92,7 +96,7 @@ class AddStoryActivity : AppCompatActivity() {
         lat: Float? = null,
         lon: Float? = null
     ) {
-        addStoryviewModel.uploadStory(photo, description, token, lat, lon)
+        addStoryViewModel.uploadStory(photo, description, token, lat, lon)
     }
 
     private fun startCamera() {
@@ -165,6 +169,10 @@ class AddStoryActivity : AppCompatActivity() {
         intent.type = "image/*"
         val chooser = Intent.createChooser(intent, "Choose a Picture")
         launcherIntentGallery.launch(chooser)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {

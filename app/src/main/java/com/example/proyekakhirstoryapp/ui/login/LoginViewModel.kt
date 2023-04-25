@@ -6,19 +6,24 @@ import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.response.LoginResult
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
-    var errorResponse: String = ""
-    var error: String = ""
 
     private val _user = MutableLiveData<LoginResult?>()
     val user: LiveData<LoginResult?> = _user
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _message = MutableLiveData<String>()
+    val message: LiveData<String> = _message
+
+    private val _error = MutableLiveData<Boolean>()
+    val error: LiveData<Boolean> = _error
 
     fun loginUser(email: String, password: String) {
         _isLoading.value = true
@@ -33,16 +38,22 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
                     if (response.isSuccessful) {
                         _user.value = response.body()?.loginResult
                         saveUserToken(_user.value?.token)
+
+                        Log.e(TAG, "loginUser: ${response.body()}")
+                        _error.value = false
                     } else {
-                        errorResponse = "On failure ${response.message()} + ${response.code()}"
-                        Log.e(TAG, errorResponse)
+                        Log.e(TAG, "On failure ${response.message()} + ${response.code()}")
+                        _message.value = response.message()
+                        _error.value = true
                     }
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     _isLoading.value = false
-                    error = "On failure ${t.message.toString()}"
-                    Log.e(TAG, error)
+                    Log.e(TAG, "On failure ${t.message.toString()}")
+
+                    _message.value = t.message.toString()
+                    _error.value = true
                 }
 
             }
@@ -57,7 +68,7 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun getUserToken(): LiveData<String>{
+    fun getUserToken(): LiveData<String> {
         return userRepository.getUserToken()
     }
 

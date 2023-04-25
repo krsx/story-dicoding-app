@@ -6,6 +6,8 @@
     <string name="password">Kata Sandi</string>
     <string name="name">Nama</string>
     <string name="login">Masuk</string>
+    <string name="fill_field">Semua data wajib diisi</string>
+    <string name="wrong_credential">Email atau kata sandi salah</string>
 
     <string name="have_account">Sudah punya akun?</string>
     <string name="to_login">Masuk disini</string>
