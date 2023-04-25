@@ -50,4 +50,8 @@ class AddStoryViewModel(private val userRepository: UserRepository) : ViewModel(
 
         })
     }
+
+    fun getUserToken(): LiveData<String> {
+        return userRepository.getUserToken()
+    }
 }

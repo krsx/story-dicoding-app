@@ -15,11 +15,13 @@ import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.addstory.AddStoryActivity
 import com.example.proyekakhirstoryapp.ui.home.adapter.ListStoryAdapter
 import com.example.proyekakhirstoryapp.ui.login.LoginActivity
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var factory: ViewModelFactory
     private val mainViewModel: MainViewModel by viewModels { factory }
+    private var getFile: File? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

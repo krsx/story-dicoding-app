@@ -11,18 +11,33 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.databinding.ActivityAddStoryBinding
+import com.example.proyekakhirstoryapp.ui.home.MainViewModel
+import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
+import com.example.proyekakhirstoryapp.utils.reduceFileImage
 import com.example.proyekakhirstoryapp.utils.rotateFile
 import com.example.proyekakhirstoryapp.utils.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
+    private lateinit var factory: ViewModelFactory
+    private val addStoryviewModel: AddStoryViewModel by viewModels { factory }
+    private var getFile: File? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        factory = ViewModelFactory.getInstance(this)
 
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -42,6 +57,42 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnGallery.setOnClickListener {
             startGallery()
         }
+
+        binding.btnSendStory.setOnClickListener {
+            if (getFile != null) {
+                val file = reduceFileImage(getFile as File)
+
+                val desc =
+                    binding.edDescStory.text.toString().toRequestBody("text/plain".toMediaType())
+                val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
+                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    KEY_PHOTO,
+                    file.name,
+                    requestImageFile
+                )
+
+                addStoryviewModel.getUserToken().observe(this) { token ->
+                    uploadStory(imageMultipart, desc, "bearer $token")
+                }
+
+            } else {
+                Toast.makeText(
+                    this,
+                    "Silahkan tambahkan story terlebih dahulu",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun uploadStory(
+        photo: MultipartBody.Part,
+        description: RequestBody,
+        token: String,
+        lat: Float? = null,
+        lon: Float? = null
+    ) {
+        addStoryviewModel.uploadStory(photo, description, token, lat, lon)
     }
 
     private fun startCamera() {
@@ -59,13 +110,12 @@ class AddStoryActivity : AppCompatActivity() {
             if (!allPermissionsGranted()) {
                 Toast.makeText(
                     this,
-                    "Tidak mendapatkan permission.",
+                    "Tidak mendapatkan permission",
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()
             }
         }
-
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -84,18 +134,13 @@ class AddStoryActivity : AppCompatActivity() {
                 it.data?.getSerializableExtra(KEY_PHOTO)
             } as? File
 
-            Toast.makeText(
-                this,
-                "${it.data}",
-                Toast.LENGTH_SHORT
-            ).show()
-
             val isBackCamera =
                 it.data?.getBooleanExtra(KEY_CAMERA_STATUS, true) as Boolean
 
 
             myFile?.let { file ->
                 rotateFile(file, isBackCamera)
+                getFile = file
                 binding.previewImage.setImageBitmap(BitmapFactory.decodeFile(file.path))
             }
         }
@@ -108,6 +153,7 @@ class AddStoryActivity : AppCompatActivity() {
             val selectedImg = result.data?.data as Uri
             selectedImg.let { uri ->
                 val myFile = uriToFile(uri, this@AddStoryActivity)
+                getFile = myFile
                 binding.previewImage.setImageURI(uri)
             }
         }
