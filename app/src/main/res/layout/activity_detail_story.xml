@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/iv_detail_photo"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="300dp"
         android:contentDescription="@string/photo_story_card"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +27,8 @@
         style="@style/styleTextNormal"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/story_image"
-        app:layout_constraintTop_toBottomOf="@+id/story_image" />
+        app:layout_constraintStart_toStartOf="@+id/iv_detail_photo"
+        app:layout_constraintTop_toBottomOf="@+id/iv_detail_photo" />
 
     <TextView
         android:id="@+id/tv_detail_description"
@@ -38,22 +38,22 @@
         android:layout_marginStart="14sp"
         android:layout_marginTop="12dp"
         android:text="@string/story_desc"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/story_create_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_create_desc" />
 
     <TextView
-        android:id="@+id/story_create_desc"
+        android:id="@+id/tv_create_desc"
         style="@style/styleTextNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:text="@string/story_created_at"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@+id/iv_detail_photo"
-        app:layout_constraintTop_toBottomOf="@+id/iv_detail_photo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_name"
         tools:ignore="SmallSp" />
 
     <ProgressBar

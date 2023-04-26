@@ -61,11 +61,11 @@ class AddStoryActivity : AppCompatActivity() {
             startGallery()
         }
 
-        binding.btnSendStory.setOnClickListener {
+        binding.buttonAdd.setOnClickListener {
             if (getFile != null) {
                 val file = reduceFileImage(getFile as File)
                 val desc =
-                    binding.edDescStory.text.toString().toRequestBody("text/plain".toMediaType())
+                    binding.edAddDescription.text.toString().toRequestBody("text/plain".toMediaType())
                 val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
                 val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                     KEY_PHOTO,

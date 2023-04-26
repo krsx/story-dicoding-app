@@ -51,7 +51,6 @@ class DetailStoryViewModel(private val userRepository: UserRepository): ViewMode
                 _message.value = t.message.toString()
                 _error.value = true
             }
-
         })
     }
 

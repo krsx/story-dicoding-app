@@ -47,6 +47,12 @@ class MainActivity : AppCompatActivity() {
     private fun setStoriesData(stories: List<ListStoryItem?>) {
         val adapter = ListStoryAdapter(stories)
         binding.rvStories.adapter = adapter
+
+        adapter.setOnItemClickCallback(object: ListStoryAdapter.OnItemClickCallback{
+            override fun onItemClicked(stories: ListStoryItem?) {
+
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
