@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
 
+        setupActionBar()
+
         initRecyclerView()
 
         mainViewModel.isLoading.observe(this) {
@@ -81,5 +83,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun setupActionBar(){
+        val actionBar = supportActionBar
+        actionBar?.title = "MyStory."
     }
 }
