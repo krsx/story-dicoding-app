@@ -16,6 +16,7 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.databinding.ActivityAddStoryBinding
+import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
 import com.example.proyekakhirstoryapp.ui.home.MainViewModel
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.utils.reduceFileImage
@@ -30,17 +31,18 @@ import java.io.File
 
 class AddStoryActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddStoryBinding
+    private var _binding: ActivityAddStoryBinding? = null
     private lateinit var factory: ViewModelFactory
     private val addStoryViewModel: AddStoryViewModel by viewModels { factory }
     private var getFile: File? = null
 
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         factory = ViewModelFactory.getInstance(this)
 
-        binding = ActivityAddStoryBinding.inflate(layoutInflater)
+        _binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (!allPermissionsGranted()) {
@@ -62,7 +64,6 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnSendStory.setOnClickListener {
             if (getFile != null) {
                 val file = reduceFileImage(getFile as File)
-
                 val desc =
                     binding.edDescStory.text.toString().toRequestBody("text/plain".toMediaType())
                 val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
@@ -75,6 +76,7 @@ class AddStoryActivity : AppCompatActivity() {
                 addStoryViewModel.getUserToken().observe(this) { token ->
                     uploadStory(imageMultipart, desc, "bearer $token")
                 }
+
             } else {
                 Toast.makeText(
                     this,

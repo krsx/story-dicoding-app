@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(private val userRepository: UserRepository): ViewModel() {
 
-
     fun logout() {
         viewModelScope.launch {
             userRepository.logout()

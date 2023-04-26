@@ -12,18 +12,20 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.databinding.ActivityCameraBinding
+import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
 import com.example.proyekakhirstoryapp.utils.createFile
 
 class CameraActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCameraBinding
+    private var _binding: ActivityCameraBinding? = null
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityCameraBinding.inflate(layoutInflater)
+        _binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.captureImage.setOnClickListener {
@@ -46,7 +48,6 @@ class CameraActivity : AppCompatActivity() {
         hideSystemUI()
         startCamera()
     }
-
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
@@ -118,12 +119,12 @@ class CameraActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
     companion object {
         const val KEY_PHOTO = "photo"
         const val KEY_CAMERA_STATUS = "isBackCamera"
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

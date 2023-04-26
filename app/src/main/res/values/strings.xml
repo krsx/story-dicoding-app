@@ -30,6 +30,8 @@
     <string name="add_story">Tombol tambah story</string>
     <string name="send_story">Kirim</string>
     <string name="language_settings">Atur bahasa</string>
-    <string name="pilih_bahasa">Pilih bahasa</string>
+    <string name="select_language">Pilih bahasa</string>
     <string name="settings">settings</string>
+
+    <string name="error_password">Masukkan minimal 8 karakter</string>
 </resources>
