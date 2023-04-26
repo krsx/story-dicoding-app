@@ -10,54 +10,60 @@
 
     <TextView
         android:id="@+id/tv_register"
+        style="styleTextNormal"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/register"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/ed_register_name"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/ed_register_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:hint="@string/name"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/ed_register_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_register" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/ed_register_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=""
         android:hint="@string/email_address"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.proyekakhirstoryapp.ui.views.PasswordForm
         android:id="@+id/ed_register_password"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +72,7 @@
     <Button
         android:id="@+id/btn_register"
         android:layout_width="0dp"
+        android:padding="16dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
@@ -76,26 +83,36 @@
         app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />
 
 
-    <TextView
-        android:id="@+id/tv_have_acc"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
-        android:text="@string/have_account"
-        app:layout_constraintEnd_toStartOf="@+id/tv_to_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
-
-    <TextView
-        android:id="@+id/tv_to_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/to_login"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_have_acc"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_have_acc" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_register">
+
+        <TextView
+            android:id="@+id/tv_have_acc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/black"
+            style="styleTextNormal"
+            android:text="@string/have_account" />
+
+        <TextView
+            android:id="@+id/tv_to_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/teal_200"
+            android:text="@string/to_login"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_have_acc"
+            app:layout_constraintTop_toTopOf="@+id/tv_have_acc" />
+
+    </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

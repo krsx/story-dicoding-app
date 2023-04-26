@@ -2,9 +2,12 @@ package com.example.proyekakhirstoryapp.ui.login
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -32,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
 
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupView()
 
         loginViewModel.getUserToken().observe(this) { token ->
             if (token != "") {
@@ -99,6 +104,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun displayToast(msg: String) {
         return Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 
 }
