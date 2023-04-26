@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
+import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.data.api.response.Story
 import com.example.proyekakhirstoryapp.databinding.ActivityDetailStoryBinding
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
@@ -41,7 +42,7 @@ class DetailStoryActivity : AppCompatActivity() {
     private fun setDetailStory(user: Story?) {
         Glide.with(this).load(user?.photoUrl).into(binding.ivDetailPhoto)
         binding.tvDetailName.text = user?.name
-        binding.tvCreateDesc.text = user?.createdAt!!.subSequence(0, 9)
+        binding.tvCreateDesc.text = resources.getString(R.string.story_created_at, user?.createdAt!!.subSequence(0, 9))
         binding.tvDetailDescription.text = user.description
     }
 

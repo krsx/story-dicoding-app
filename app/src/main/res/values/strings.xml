@@ -34,4 +34,8 @@
     <string name="settings">settings</string>
 
     <string name="error_password">Masukkan minimal 8 karakter</string>
+    <string name="error_upload">Gagal mengupload story</string>
+    <string name="error_no_permission">Tidak mendapatkan permission</string>
+    <string name="error_no_photo">Silahkan tambahkan foto terlebih dahulu</string>
+
 </resources>

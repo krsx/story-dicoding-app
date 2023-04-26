@@ -12,7 +12,6 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.databinding.ActivityCameraBinding
-import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
 import com.example.proyekakhirstoryapp.utils.createFile
 
 class CameraActivity : AppCompatActivity() {

@@ -39,30 +39,7 @@
         tools:text="@string/add_story_hint_desc" />
 
     <Button
-        android:id="@+id/btn_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/gallery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_add_description" />
-
-    <Button
-        android:id="@+id/btn_camera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/camera"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_gallery" />
-
-    <Button
+        android:padding="16dp"
         android:id="@+id/button_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,6 +50,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/ed_add_description">
+
+        <Button
+            android:padding="16dp"
+            android:id="@+id/btn_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:text="@string/gallery"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:padding="16dp"
+            android:id="@+id/btn_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:text="@string/camera"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

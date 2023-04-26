@@ -20,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_camera_alt_24"
-        android:contentDescription="@string/btn_camera" />
+        android:contentDescription="@string/btn_camera"
+        app:tint="@color/teal_200" />
 
     <ImageView
         android:id="@+id/switchCamera"
@@ -31,7 +32,8 @@
         app:layout_constraintEnd_toEndOf="@+id/viewFinder"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_cameraswitch_24"
-        android:contentDescription="@string/btn_switch_camera" />
+        app:tint="@color/white"
+    android:contentDescription="@string/btn_switch_camera" />
 
     <ProgressBar
         android:id="@+id/progressBar"

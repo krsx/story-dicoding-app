@@ -15,9 +15,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityAddStoryBinding
-import com.example.proyekakhirstoryapp.databinding.ActivityLoginBinding
-import com.example.proyekakhirstoryapp.ui.home.MainViewModel
+import com.example.proyekakhirstoryapp.ui.home.MainActivity
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.utils.reduceFileImage
 import com.example.proyekakhirstoryapp.utils.rotateFile
@@ -65,7 +65,8 @@ class AddStoryActivity : AppCompatActivity() {
             if (getFile != null) {
                 val file = reduceFileImage(getFile as File)
                 val desc =
-                    binding.edAddDescription.text.toString().toRequestBody("text/plain".toMediaType())
+                    binding.edAddDescription.text.toString()
+                        .toRequestBody("text/plain".toMediaType())
                 val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
                 val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                     KEY_PHOTO,
@@ -75,14 +76,25 @@ class AddStoryActivity : AppCompatActivity() {
 
                 addStoryViewModel.getUserToken().observe(this) { token ->
                     uploadStory(imageMultipart, desc, "bearer $token")
+                    addStoryViewModel.error.observe(this) { error ->
+                        if (!error) {
+                            val intentToMain = Intent(this, MainActivity::class.java)
+                            startActivity(intentToMain)
+                            finish()
+                        }else{
+                            addStoryViewModel.message.observe(this){
+                                message ->
+                                val msg = getString(R.string.error_upload)
+                                displayToast("$message: $msg")
+
+                            }
+                        }
+                    }
                 }
 
             } else {
-                Toast.makeText(
-                    this,
-                    "Silahkan tambahkan story terlebih dahulu",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val msg = getString(R.string.error_no_photo)
+                displayToast(msg)
             }
         }
 
@@ -114,11 +126,8 @@ class AddStoryActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (!allPermissionsGranted()) {
-                Toast.makeText(
-                    this,
-                    "Tidak mendapatkan permission",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val msg = getString(R.string.error_no_permission)
+                displayToast(msg)
                 finish()
             }
         }
@@ -175,6 +184,10 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun displayToast(msg: String) {
+        return Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
     companion object {
