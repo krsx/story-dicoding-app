@@ -2,10 +2,7 @@ package com.example.proyekakhirstoryapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
-import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
-import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
-import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
-import com.example.proyekakhirstoryapp.data.api.response.StoriesResponse
+import com.example.proyekakhirstoryapp.data.api.response.*
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiService
 import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import okhttp3.MultipartBody
@@ -24,7 +21,7 @@ class UserRepository(
         return apiService.registerUser(name, email, password)
     }
 
-    suspend fun logout(){
+    suspend fun logout() {
         return pref.clearCache()
     }
 
@@ -45,6 +42,10 @@ class UserRepository(
         lon: Float? = null
     ): Call<DefaultResponse> {
         return apiService.addStory(token, photo, description, lat, lon)
+    }
+
+    fun getDetailStories(token: String, id: String): Call<DetailStoriesResponse> {
+        return apiService.getDetailStories(token, id)
     }
 
     companion object {

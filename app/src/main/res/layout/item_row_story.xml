@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/story_image"
+                android:id="@+id/iv_item_photo"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:contentDescription="@string/photo_story_card"
@@ -47,11 +47,11 @@
                 style="@style/styleTextNormal"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/story_image"
-                app:layout_constraintTop_toBottomOf="@+id/story_image" />
+                app:layout_constraintStart_toStartOf="@+id/iv_item_photo"
+                app:layout_constraintTop_toBottomOf="@+id/iv_item_photo" />
 
             <TextView
-                android:id="@+id/story_desc"
+                android:id="@+id/tv_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14sp"
@@ -74,7 +74,7 @@
                 style="@style/styleTextNormal"
                 android:textSize="12sp"
                 android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/story_image"
+                app:layout_constraintStart_toStartOf="@+id/iv_item_photo"
                 app:layout_constraintTop_toBottomOf="@+id/story_name"
                 tools:ignore="SmallSp" />
 

@@ -37,7 +37,6 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/add_story"
         android:src="@drawable/ic_camera_alt_24"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

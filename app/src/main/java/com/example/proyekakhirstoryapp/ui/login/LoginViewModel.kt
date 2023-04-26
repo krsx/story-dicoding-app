@@ -1,12 +1,14 @@
 package com.example.proyekakhirstoryapp.ui.login
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
 import com.example.proyekakhirstoryapp.data.api.response.LoginResult
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,7 +57,6 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
                     _message.value = t.message.toString()
                     _error.value = true
                 }
-
             }
         )
     }

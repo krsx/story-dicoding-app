@@ -16,5 +16,7 @@ class DetailStoryActivity : AppCompatActivity() {
 
         _binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
     }
 }

@@ -1,9 +1,6 @@
 package com.example.proyekakhirstoryapp.data.api.retrofit
 
-import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
-import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
-import com.example.proyekakhirstoryapp.data.api.response.LoginResponse
-import com.example.proyekakhirstoryapp.data.api.response.StoriesResponse
+import com.example.proyekakhirstoryapp.data.api.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -42,4 +39,10 @@ interface ApiService {
         @Part("lat") lat: Float? = null,
         @Part("lon") lon: Float? = null,
     ): Call<DefaultResponse>
+
+    @GET("stories/{id}")
+    fun getDetailStories(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<DetailStoriesResponse>
 }
