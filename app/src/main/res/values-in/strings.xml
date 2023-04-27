@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyStory.</string>
+
+    <string name="register">Daftar</string>
+    <string name="email_address">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="name">Nama</string>
+    <string name="login">Masuk</string>
+    <string name="fill_field">Semua data wajib diisi</string>
+    <string name="wrong_credential">Email atau kata sandi salah</string>
+
+    <string name="have_account">Sudah punya akun?</string>
+    <string name="to_login">Masuk disini</string>
+
+    <string name="no_account">Belum punya akun?</string>
+    <string name="to_register">Daftar disini</string>
+    <string name="logout">Keluar</string>
+    <string name="register_success">Daftar akun berhasil</string>
+    <string name="register_failed">Daftar akun gagal</string>
+
+    <string name="photo_story_card">Story foto</string>
+    <string name="story_desc">Deskripsi Story</string>
+    <string name="story_created_at">dibuat pada %s</string>
+    <string name="add_story_hint_desc">Masukkan deskripsi</string>
+    <string name="add_story_photo">Foto story</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Camera</string>
+    <string name="btn_camera">Tombol kamera</string>
+    <string name="btn_switch_camera">Tombol ganti kamera</string>
+    <string name="add_story">Tombol tambah story</string>
+    <string name="send_story">Kirim</string>
+    <string name="language_settings">Atur bahasa</string>
+    <string name="select_language">Pilih bahasa</string>
+    <string name="settings">settings</string>
+
+    <string name="error_password">Masukkan minimal 8 karakter</string>
+    <string name="error_upload">Gagal mengupload story</string>
+    <string name="error_no_permission">Tidak mendapatkan permission</string>
+    <string name="error_no_photo">Silahkan tambahkan foto terlebih dahulu</string>
+    <string name="error_no_desc">Silahkan tambahkan deskripsi terlebih dahulu</string>
+
+    <string name="title_settings">Pengaturan</string>
+    <string name="title_detail">Detail Story</string>
+    <string name="title_add_story">Tambah Story</string>
+</resources>

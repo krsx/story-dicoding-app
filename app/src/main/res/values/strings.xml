@@ -1,43 +1,46 @@
 <resources>
-    <string name="app_name">Proyek Akhir Story App</string>
+    <string name="app_name">MyStory.</string>
 
-    <string name="register">Daftar</string>
+    <string name="register">Register</string>
     <string name="email_address">Email</string>
-    <string name="password">Kata Sandi</string>
-    <string name="name">Nama</string>
-    <string name="login">Masuk</string>
-    <string name="fill_field">Semua data wajib diisi</string>
-    <string name="wrong_credential">Email atau kata sandi salah</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="login">Login</string>
+    <string name="fill_field">Please fill every field</string>
+    <string name="wrong_credential">Wrong email or password</string>
 
-    <string name="have_account">Sudah punya akun?</string>
-    <string name="to_login">Masuk disini</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="to_login">Login here</string>
 
-    <string name="no_account">Belum punya akun?</string>
-    <string name="to_register">Daftar disini</string>
-    <string name="logout">Keluar</string>
-    <string name="register_success">Daftar akun berhasil</string>
-    <string name="register_failed">Daftar akun gagal</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="to_register">Register here</string>
+    <string name="logout">Logout</string>
+    <string name="register_success">Register success</string>
+    <string name="register_failed">Register failed</string>
 
-    <string name="photo_story_card">Story foto</string>
-    <string name="story_desc">Deskripsi Story</string>
-    <string name="story_created_at">dibuat pada %s</string>
-    <string name="add_story_hint_desc">Masukkan deskripsi</string>
-    <string name="add_story_photo">Foto story</string>
-    <string name="gallery">Galeri</string>
+    <string name="photo_story_card">Story photo</string>
+    <string name="story_desc">Story description</string>
+    <string name="story_created_at">created at %s</string>
+    <string name="add_story_hint_desc">Enter description</string>
+    <string name="add_story_photo">Story photo</string>
+    <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
-    <string name="btn_camera">Tombol kamera</string>
-    <string name="btn_switch_camera">Tombol ganti kamera</string>
-    <string name="add_story">Tombol tambah story</string>
-    <string name="send_story">Kirim</string>
-    <string name="language_settings">Atur bahasa</string>
+    <string name="btn_camera">Camera button</string>
+    <string name="btn_switch_camera">Change camera button</string>
+    <string name="add_story">Add story button</string>
+    <string name="send_story">Send</string>
+    <string name="language_settings">Set language</string>
     <string name="select_language">Pilih bahasa</string>
-    <string name="settings">settings</string>
+    <string name="settings">Settings</string>
 
-    <string name="error_password">Masukkan minimal 8 karakter</string>
-    <string name="error_upload">Gagal mengupload story</string>
-    <string name="error_no_permission">Tidak mendapatkan permission</string>
-    <string name="error_no_photo">Silahkan tambahkan foto terlebih dahulu</string>
-    <string name="error_no_desc">Silahkan tambahkan deskripsi terlebih dahulu</string>
+    <string name="error_password">Password length must be more than 8 character</string>
+    <string name="error_upload">Failed to upload story</string>
+    <string name="error_no_permission">Permission not granted</string>
+    <string name="error_no_photo">Please add your photo</string>
+    <string name="error_no_desc">Please add your description</string>
 
+    <string name="title_settings">Settings</string>
+    <string name="title_detail">Detail Story</string>
+    <string name="title_add_story">Add Story</string>
 
 </resources>

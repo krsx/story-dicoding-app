@@ -1,8 +1,11 @@
 package com.example.proyekakhirstoryapp.ui.detailstory
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.example.proyekakhirstoryapp.R
@@ -24,6 +27,8 @@ class DetailStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         factory = ViewModelFactory.getInstance(this)
+
+        setupView()
 
         detailViewModel.getUserToken().observe(this) { token ->
             id = intent.getStringExtra(KEY_ID)
@@ -52,6 +57,20 @@ class DetailStoryActivity : AppCompatActivity() {
 
     private fun getDetailStory(id: String, token: String) {
         detailViewModel.getDetailStory(id, token)
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        val actionBar = supportActionBar
+        actionBar?.title = getString(R.string.title_detail)
     }
 
     companion object {

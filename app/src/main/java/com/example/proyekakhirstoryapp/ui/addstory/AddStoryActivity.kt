@@ -10,6 +10,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -44,6 +46,8 @@ class AddStoryActivity : AppCompatActivity() {
 
         _binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupView()
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -207,6 +211,20 @@ class AddStoryActivity : AppCompatActivity() {
 
         const val KEY_PHOTO = "photo"
         const val KEY_CAMERA_STATUS = "isBackCamera"
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        val actionBar = supportActionBar
+        actionBar?.title = getString(R.string.title_add_story)
     }
 
 }

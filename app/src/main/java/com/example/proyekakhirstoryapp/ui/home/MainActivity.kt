@@ -93,6 +93,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupActionBar(){
         val actionBar = supportActionBar
-        actionBar?.title = "MyStory."
+        actionBar?.title = getString(R.string.app_name)
     }
 }
