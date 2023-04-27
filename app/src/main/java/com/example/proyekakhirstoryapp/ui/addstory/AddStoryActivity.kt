@@ -63,35 +63,39 @@ class AddStoryActivity : AppCompatActivity() {
 
         binding.buttonAdd.setOnClickListener {
             if (getFile != null) {
-                val file = reduceFileImage(getFile as File)
-                val desc =
-                    binding.edAddDescription.text.toString()
-                        .toRequestBody("text/plain".toMediaType())
-                val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
-                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    KEY_PHOTO,
-                    file.name,
-                    requestImageFile
-                )
+                if (binding.edAddDescription.text != null){
+                    val file = reduceFileImage(getFile as File)
+                    val desc =
+                        binding.edAddDescription.text.toString()
+                            .toRequestBody("text/plain".toMediaType())
+                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
+                    val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                        KEY_PHOTO,
+                        file.name,
+                        requestImageFile
+                    )
 
-                addStoryViewModel.getUserToken().observe(this) { token ->
-                    uploadStory(imageMultipart, desc, "bearer $token")
-                    addStoryViewModel.error.observe(this) { error ->
-                        if (!error) {
-                            val intentToMain = Intent(this, MainActivity::class.java)
-                            startActivity(intentToMain)
-                            finish()
-                        }else{
-                            addStoryViewModel.message.observe(this){
-                                message ->
-                                val msg = getString(R.string.error_upload)
-                                displayToast("$message: $msg")
-
+                    addStoryViewModel.getUserToken().observe(this) { token ->
+                        uploadStory(imageMultipart, desc, "bearer $token")
+                        addStoryViewModel.error.observe(this) { error ->
+                            if (!error) {
+                                val intentToMain = Intent(this, MainActivity::class.java)
+                                startActivity(intentToMain)
+                                finish()
+                            }else{
+                                addStoryViewModel.message.observe(this){
+                                        message ->
+                                    val msg = getString(R.string.error_upload)
+                                    displayToast("$message: $msg")
+                                }
                             }
                         }
                     }
                 }
-
+                else{
+                    val msg = getString(R.string.error_no_desc)
+                    displayToast(msg)
+                }
             } else {
                 val msg = getString(R.string.error_no_photo)
                 displayToast(msg)
@@ -183,7 +187,13 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.buttonAdd.isEnabled = false
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.buttonAdd.isEnabled = true
+        }
     }
 
     private fun displayToast(msg: String) {
