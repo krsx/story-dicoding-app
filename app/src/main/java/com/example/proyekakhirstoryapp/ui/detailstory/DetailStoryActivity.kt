@@ -1,5 +1,7 @@
 package com.example.proyekakhirstoryapp.ui.detailstory
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +31,7 @@ class DetailStoryActivity : AppCompatActivity() {
         factory = ViewModelFactory.getInstance(this)
 
         setupView()
+        playAnimation()
 
         detailViewModel.getUserToken().observe(this) { token ->
             id = intent.getStringExtra(KEY_ID)
@@ -71,6 +74,17 @@ class DetailStoryActivity : AppCompatActivity() {
         }
         val actionBar = supportActionBar
         actionBar?.title = getString(R.string.title_detail)
+    }
+
+    private fun playAnimation() {
+        val user = ObjectAnimator.ofFloat(binding.tvDetailName, View.ALPHA, 1f).setDuration(500)
+        val date = ObjectAnimator.ofFloat(binding.tvCreateDesc, View.ALPHA, 1f).setDuration(500)
+        val desc = ObjectAnimator.ofFloat(binding.tvDetailDescription, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(user, date, desc)
+            startDelay = 300
+        }.start()
     }
 
     companion object {

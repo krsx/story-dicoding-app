@@ -1,6 +1,8 @@
 package com.example.proyekakhirstoryapp.ui.addstory
 
 import android.Manifest
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
@@ -48,6 +50,7 @@ class AddStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        playAnimation()
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -67,7 +70,7 @@ class AddStoryActivity : AppCompatActivity() {
 
         binding.buttonAdd.setOnClickListener {
             if (getFile != null) {
-                if (binding.edAddDescription.text != null){
+                if (binding.edAddDescription.text != null) {
                     val file = reduceFileImage(getFile as File)
                     val desc =
                         binding.edAddDescription.text.toString()
@@ -86,17 +89,15 @@ class AddStoryActivity : AppCompatActivity() {
                                 val intentToMain = Intent(this, MainActivity::class.java)
                                 startActivity(intentToMain)
                                 finish()
-                            }else{
-                                addStoryViewModel.message.observe(this){
-                                        message ->
+                            } else {
+                                addStoryViewModel.message.observe(this) { message ->
                                     val msg = getString(R.string.error_upload)
                                     displayToast("$message: $msg")
                                 }
                             }
                         }
                     }
-                }
-                else{
+                } else {
                     val msg = getString(R.string.error_no_desc)
                     displayToast(msg)
                 }
@@ -227,4 +228,17 @@ class AddStoryActivity : AppCompatActivity() {
         actionBar?.title = getString(R.string.title_add_story)
     }
 
+    private fun playAnimation() {
+        val title = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).setDuration(500)
+        val img = ObjectAnimator.ofFloat(binding.previewImage, View.ALPHA, 1f).setDuration(500)
+        val desc = ObjectAnimator.ofFloat(binding.edAddDescription, View.ALPHA, 1f).setDuration(500)
+        val camera = ObjectAnimator.ofFloat(binding.btnCamera, View.ALPHA, 1f).setDuration(500)
+        val gallery = ObjectAnimator.ofFloat(binding.btnGallery, View.ALPHA, 1f).setDuration(500)
+        val btn = ObjectAnimator.ofFloat(binding.buttonAdd, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(title, img, desc, gallery, camera, btn)
+            startDelay = 300
+        }.start()
+    }
 }

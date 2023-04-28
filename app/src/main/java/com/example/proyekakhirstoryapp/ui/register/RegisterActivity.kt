@@ -124,7 +124,7 @@ class RegisterActivity : AppCompatActivity() {
 
         AnimatorSet().apply {
             playSequentially(title, name, email, pass, button, have_acc)
-            startDelay = 500
+            startDelay = 300
         }.start()
 
     }

@@ -131,8 +131,7 @@ class LoginActivity : AppCompatActivity() {
 
         AnimatorSet().apply {
             playSequentially(title, email, pass, button, have_acc)
-            startDelay = 500
+            startDelay = 300
         }.start()
-
     }
 }
