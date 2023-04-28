@@ -1,5 +1,7 @@
 package com.example.proyekakhirstoryapp.ui.register
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +32,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        playAnimation()
 
         binding.btnRegister.setOnClickListener {
 
@@ -109,5 +112,20 @@ class RegisterActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun playAnimation(){
+        val title = ObjectAnimator.ofFloat(binding.tvRegister, View.ALPHA, 1f).setDuration(500)
+        val name = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(500)
+        val email = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(500)
+        val pass = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(500)
+        val button = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
+        val have_acc = ObjectAnimator.ofFloat(binding.layoutHaveAcc, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(title, name, email, pass, button, have_acc)
+            startDelay = 500
+        }.start()
+
     }
 }

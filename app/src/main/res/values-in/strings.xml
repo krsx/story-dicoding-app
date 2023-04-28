@@ -44,4 +44,5 @@
     <string name="title_detail">Detail Story</string>
     <string name="title_add_story">Tambah Story</string>
     <string name="error_email">Format email salah</string>
+    <string name="add_your_story">Tambah Story Anda</string>
 </resources>

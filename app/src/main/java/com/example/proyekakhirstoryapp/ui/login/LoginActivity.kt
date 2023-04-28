@@ -1,5 +1,7 @@
 package com.example.proyekakhirstoryapp.ui.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -37,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        playAnimation()
 
         loginViewModel.getUserToken().observe(this) { token ->
             if (token != "") {
@@ -119,4 +122,17 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    private fun playAnimation(){
+        val title = ObjectAnimator.ofFloat(binding.tvLogin, View.ALPHA, 1f).setDuration(500)
+        val email = ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f).setDuration(500)
+        val pass = ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f).setDuration(500)
+        val button = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
+        val have_acc = ObjectAnimator.ofFloat(binding.layoutNoAcc, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(title, email, pass, button, have_acc)
+            startDelay = 500
+        }.start()
+
+    }
 }

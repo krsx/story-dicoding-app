@@ -20,7 +20,8 @@
         android:text="@string/register"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/ed_register_name"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"/>
 
     <EditText
         android:id="@+id/ed_register_name"
@@ -35,7 +36,8 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/ed_register_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"/>
 
     <com.example.proyekakhirstoryapp.ui.views.EmailForm
         android:id="@+id/ed_register_email"
@@ -51,7 +53,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:alpha="0"/>
 
     <com.example.proyekakhirstoryapp.ui.views.PasswordForm
         android:id="@+id/ed_register_password"
@@ -69,7 +72,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_email" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_email"
+        android:alpha="0"/>
 
     <Button
         android:id="@+id/btn_register"
@@ -82,10 +86,12 @@
         android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_password"
+        android:alpha="0"/>
 
 
     <LinearLayout
+        android:id="@+id/layout_have_acc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -93,7 +99,8 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register">
+        app:layout_constraintTop_toBottomOf="@+id/btn_register"
+        android:alpha="0">
 
         <TextView
             android:id="@+id/tv_have_acc"
