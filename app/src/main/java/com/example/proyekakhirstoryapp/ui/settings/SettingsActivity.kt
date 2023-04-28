@@ -35,6 +35,7 @@ class SettingsActivity : AppCompatActivity() {
             settingsViewModel.logout()
 
             val intentToLogin = Intent(this@SettingsActivity, LoginActivity::class.java)
+            intentToLogin.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intentToLogin)
             finish()
         }

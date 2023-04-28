@@ -29,6 +29,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:padding="10dp"
         android:hint="@string/name"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
@@ -36,10 +37,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <com.example.proyekakhirstoryapp.ui.views.EmailForm
         android:id="@+id/ed_register_email"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        android:padding="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=""

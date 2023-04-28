@@ -34,6 +34,7 @@
     <string name="settings">Settings</string>
 
     <string name="error_password">Password length must be more than 8 character</string>
+    <string name="error_email">Invalid email format</string>
     <string name="error_upload">Failed to upload story</string>
     <string name="error_no_permission">Permission not granted</string>
     <string name="error_no_photo">Please add your photo</string>
@@ -42,5 +43,7 @@
     <string name="title_settings">Settings</string>
     <string name="title_detail">Detail Story</string>
     <string name="title_add_story">Add Story</string>
+
+
 
 </resources>

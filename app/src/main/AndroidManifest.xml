@@ -18,6 +18,9 @@
         android:theme="@style/Theme.ProyekAkhirStoryApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.detailstory.DetailStoryActivity"
             android:exported="false" />
         <activity

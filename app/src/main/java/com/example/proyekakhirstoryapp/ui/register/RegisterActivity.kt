@@ -55,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                                 val intentLogin =
                                     Intent(this@RegisterActivity, LoginActivity::class.java)
                                 startActivity(intentLogin)
+                                finish()
                             }
                         }
                     } else {
