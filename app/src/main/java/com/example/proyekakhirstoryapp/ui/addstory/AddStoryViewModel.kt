@@ -1,13 +1,11 @@
 package com.example.proyekakhirstoryapp.ui.addstory
 
-import android.provider.ContactsContract.DisplayPhoto
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyekakhirstoryapp.data.api.response.DefaultResponse
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
-import com.example.proyekakhirstoryapp.ui.detailstory.DetailStoryViewModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -43,7 +41,7 @@ class AddStoryViewModel(private val userRepository: UserRepository) : ViewModel(
                     _error.value = false
                     _message.value = response.message()
                     Log.e(TAG, "uploadStory: ${response.body()}")
-                }else{
+                } else {
                     _error.value = true
                     _message.value = response.message()
                     Log.e(TAG, "On failure ${response.message()} + ${response.code()}")
@@ -66,7 +64,7 @@ class AddStoryViewModel(private val userRepository: UserRepository) : ViewModel(
         return userRepository.getUserToken()
     }
 
-    companion object{
+    companion object {
         private const val TAG = "AddStoryViewModel"
     }
 }

@@ -1,7 +1,6 @@
 package com.example.proyekakhirstoryapp.ui.views
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.text.Editable
 import android.text.TextWatcher

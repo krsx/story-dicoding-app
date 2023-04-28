@@ -7,21 +7,20 @@
     android:orientation="vertical"
     tools:context=".ui.register.RegisterActivity">
 
-
     <TextView
         android:id="@+id/tv_register"
         style="styleTextNormal"
-        android:textStyle="bold"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="24dp"
+        android:alpha="0"
         android:text="@string/register"
+        android:textColor="@color/black"
         android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ed_register_name"
-        app:layout_constraintStart_toStartOf="parent"
-        android:alpha="0"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/ed_register_name"
@@ -30,31 +29,31 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:padding="10dp"
+        android:alpha="0"
         android:hint="@string/name"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/ed_register_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:alpha="0"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.proyekakhirstoryapp.ui.views.EmailForm
         android:id="@+id/ed_register_email"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:padding="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:alpha="0"
         android:autofillHints=""
         android:hint="@string/email_address"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:alpha="0"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.proyekakhirstoryapp.ui.views.PasswordForm
         android:id="@+id/ed_register_password"
@@ -64,6 +63,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
+        android:alpha="0"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
@@ -72,22 +72,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_email"
-        android:alpha="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_email" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="0dp"
-        android:padding="16dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:alpha="0"
+        android:padding="16dp"
         android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_register_password"
-        android:alpha="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />
 
 
     <LinearLayout
@@ -95,28 +94,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:alpha="0"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register"
-        android:alpha="0">
+        app:layout_constraintTop_toBottomOf="@+id/btn_register">
 
         <TextView
             android:id="@+id/tv_have_acc"
+            style="styleTextNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:textColor="@color/black"
-            style="styleTextNormal"
-            android:text="@string/have_account" />
+            android:text="@string/have_account"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_to_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/teal_200"
             android:text="@string/to_login"
+            android:textColor="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="@+id/tv_have_acc"
             app:layout_constraintTop_toTopOf="@+id/tv_have_acc" />
 

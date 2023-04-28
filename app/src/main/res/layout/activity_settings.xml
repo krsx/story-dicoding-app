@@ -18,25 +18,25 @@
 
         <TextView
             android:id="@+id/tv_language_settings"
+            style="@style/styleTextNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:textSize="16sp"
-            style="@style/styleTextNormal"
             android:text="@string/language_settings"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_select_language"
+            style="@style/styleTextNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:textSize="16sp"
-            style="@style/styleTextNormal"
-            android:textStyle="bold"
             android:text="@string/select_language"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

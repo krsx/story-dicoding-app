@@ -19,17 +19,17 @@
 
     <TextView
         android:id="@+id/tv_detail_name"
+        style="@style/styleTextNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:alpha="0"
         android:text="@string/name"
-        style="@style/styleTextNormal"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/iv_detail_photo"
-        app:layout_constraintTop_toBottomOf="@+id/iv_detail_photo"
-        android:alpha="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/iv_detail_photo" />
 
     <TextView
         android:id="@+id/tv_detail_description"
@@ -38,11 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14sp"
         android:layout_marginTop="12dp"
+        android:alpha="0"
         android:text="@string/story_desc"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_create_desc"
-        android:alpha="0"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_create_desc" />
 
     <TextView
         android:id="@+id/tv_create_desc"
@@ -51,13 +51,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
+        android:alpha="0"
         android:text="@string/story_created_at"
         android:textSize="14sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@+id/iv_detail_photo"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_name"
-        tools:ignore="SmallSp"
-        android:alpha="0"/>
+        tools:ignore="SmallSp" />
 
     <ProgressBar
         android:id="@+id/progressBar"

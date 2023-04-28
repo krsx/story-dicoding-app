@@ -39,12 +39,12 @@
 
             <TextView
                 android:id="@+id/tv_item_name"
+                style="@style/styleTextNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/name"
-                style="@style/styleTextNormal"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/iv_item_photo"
@@ -52,13 +52,13 @@
 
             <TextView
                 android:id="@+id/tv_item_desc"
+                style="@style/styleTextNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14sp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/story_desc"
-                style="@style/styleTextNormal"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,12 +66,12 @@
 
             <TextView
                 android:id="@+id/tv_create_desc"
+                style="@style/styleTextNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/story_created_at"
-                style="@style/styleTextNormal"
                 android:textSize="12sp"
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="@+id/iv_item_photo"

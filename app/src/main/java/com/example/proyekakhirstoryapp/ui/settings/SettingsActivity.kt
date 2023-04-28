@@ -40,7 +40,7 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnLanguage.setOnClickListener{
+        binding.btnLanguage.setOnClickListener {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
 
