@@ -40,7 +40,7 @@ class PasswordForm : AppCompatEditText {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.toString().length <= 8) {
+                if (p0.toString().length < 8) {
                     val msg = resources.getString(R.string.error_password)
                     error = msg
                 } else if (p0.toString().isEmpty()) {
