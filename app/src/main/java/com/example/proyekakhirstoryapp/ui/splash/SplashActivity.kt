@@ -23,6 +23,10 @@ class SplashActivity : AppCompatActivity() {
             val intentHome = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intentHome)
             finish()
-        }, 3000)
+        }, SPLASH_DELAY.toLong())
+    }
+
+    companion object{
+        const val SPLASH_DELAY = 3000
     }
 }

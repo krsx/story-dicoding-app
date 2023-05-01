@@ -12,7 +12,7 @@ import com.example.proyekakhirstoryapp.ui.detailstory.DetailStoryActivity
 
 class ListStoryAdapter(private val listStory: List<ListStoryItem?>) :
     RecyclerView.Adapter<ListStoryAdapter.ViewHolder>() {
-    class ViewHolder(var binding: ItemRowStoryBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemRowStoryBinding) : RecyclerView.ViewHolder(binding.root)
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 

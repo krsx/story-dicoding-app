@@ -49,9 +49,11 @@ class DetailStoryActivity : AppCompatActivity() {
 
     private fun setDetailStory(user: Story?) {
         Glide.with(this).load(user?.photoUrl).into(binding.ivDetailPhoto)
-        binding.tvDetailName.text = user?.name
-        binding.tvCreateDesc.text = resources.getString(R.string.story_created_at, user?.createdAt!!.subSequence(0, 9))
-        binding.tvDetailDescription.text = user.description
+        binding.apply {
+            tvDetailName.text = user?.name
+            tvCreateDesc.text = resources.getString(R.string.story_created_at, user?.createdAt!!.subSequence(0, 9))
+            tvDetailDescription.text = user.description
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
