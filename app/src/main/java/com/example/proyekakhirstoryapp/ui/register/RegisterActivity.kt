@@ -24,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val registerViewModel: RegisterViewModel by viewModels { factory }
 
-        private val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +36,15 @@ class RegisterActivity : AppCompatActivity() {
         setupView()
         playAnimation()
 
-        binding.edRegisterPassword.addTextChangedListener(object : TextWatcher{
+        binding.edRegisterPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.toString().length < 8){
+                if (p0.toString().length < 8) {
                     binding.btnRegister.isEnabled = false
-                }else if(p0.toString().length >= 8){
+                } else if (p0.toString().length >= 8) {
                     binding.btnRegister.isEnabled = true
                 }
             }
@@ -134,13 +134,15 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun playAnimation(){
+    private fun playAnimation() {
         val title = ObjectAnimator.ofFloat(binding.tvRegister, View.ALPHA, 1f).setDuration(500)
         val name = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(500)
         val email = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(500)
-        val pass = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(500)
+        val pass =
+            ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(500)
         val button = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
-        val have_acc = ObjectAnimator.ofFloat(binding.layoutHaveAcc, View.ALPHA, 1f).setDuration(500)
+        val have_acc =
+            ObjectAnimator.ofFloat(binding.layoutHaveAcc, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
             playSequentially(title, name, email, pass, button, have_acc)
