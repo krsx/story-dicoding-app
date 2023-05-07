@@ -47,5 +47,6 @@
 
     <string name="retry">Reload</string>
     <string name="failed_load_data">Failed to load data</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 </resources>

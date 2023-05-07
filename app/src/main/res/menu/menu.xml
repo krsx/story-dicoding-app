@@ -4,6 +4,11 @@
 
     <group android:menuCategory="container">
         <item
+            android:id="@+id/btn_maps"
+            android:icon="@drawable/ic_map_24"
+            android:title="@string/settings"
+            app:showAsAction="ifRoom" />
+        <item
             android:id="@+id/btn_settings"
             android:icon="@drawable/ic_settings_24"
             android:title="@string/settings"

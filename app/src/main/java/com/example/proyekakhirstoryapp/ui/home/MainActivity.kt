@@ -18,6 +18,7 @@ import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.addstory.AddStoryActivity
 import com.example.proyekakhirstoryapp.ui.home.adapter.ListStoryAdapter
 import com.example.proyekakhirstoryapp.ui.home.adapter.LoadingStateListStoryAdapter
+import com.example.proyekakhirstoryapp.ui.map.MapsActivity
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -56,6 +57,10 @@ class MainActivity : AppCompatActivity() {
             R.id.btn_settings -> {
                 val intentToSettings = Intent(this, SettingsActivity::class.java)
                 startActivity(intentToSettings)
+            }
+            R.id.btn_maps -> {
+                val intentToMap = Intent(this, MapsActivity::class.java)
+                startActivity(intentToMap)
             }
         }
         return super.onOptionsItemSelected(item)
