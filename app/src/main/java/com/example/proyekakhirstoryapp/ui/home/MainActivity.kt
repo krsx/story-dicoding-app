@@ -3,6 +3,7 @@ package com.example.proyekakhirstoryapp.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
+import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.databinding.ActivityMainBinding
 import com.example.proyekakhirstoryapp.ui.settings.SettingsActivity
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private lateinit var factory: ViewModelFactory
     private val mainViewModel: MainViewModel by viewModels { factory }
+    private lateinit var listStoryAdapter: ListStoryAdapter
 
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,27 +35,12 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBar()
 
-        initRecyclerView()
-
-        mainViewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
+        setStoriesData()
 
         binding.fabAddStory.setOnClickListener{
             val intentToAddStory = Intent(this, AddStoryActivity::class.java)
             startActivity(intentToAddStory)
         }
-    }
-
-    private fun setStoriesData(stories: List<ListStoryItem?>) {
-        val adapter = ListStoryAdapter(stories)
-        binding.rvStories.adapter = adapter
-
-        adapter.setOnItemClickCallback(object: ListStoryAdapter.OnItemClickCallback{
-            override fun onItemClicked(stories: ListStoryItem?) {
-
-            }
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -72,23 +60,32 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun setStoriesData() {
+        mainViewModel.getUserToken().observe(this) { token ->
+            mainViewModel.getUserStories(token)
+            Log.e("Home", "Token: $token")
+            initRecyclerView()
+        }
+    }
+
     private fun initRecyclerView(){
         val layoutManager = LinearLayoutManager(this)
         binding.rvStories.layoutManager = layoutManager
 
-        mainViewModel.getUserToken().observe(this) { token ->
-            mainViewModel.getAllStories(token)
+        listStoryAdapter = ListStoryAdapter()
+        binding.rvStories.adapter = listStoryAdapter
 
-            mainViewModel.stories.observe(this) { stories ->
-                if (stories != null) {
-                    setStoriesData(stories)
-                }
-            }
+        mainViewModel.userStories.observe(this){
+            Log.e("MainActivity", "submitted $it")
+            listStoryAdapter.submitData(lifecycle, it)
         }
-    }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+
+        listStoryAdapter.setOnItemClickCallback(object: ListStoryAdapter.OnItemClickCallback{
+            override fun onItemClicked(stories: StoryModel?) {
+
+            }
+        })
     }
 
     private fun setupActionBar(){

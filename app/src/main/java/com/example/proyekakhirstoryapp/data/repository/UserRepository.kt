@@ -39,10 +39,6 @@ class UserRepository(
         return pref.saveUserToken(token)
     }
 
-    fun getAllStories(token: String): Call<StoriesResponse> {
-        return apiService.getAllStories("bearer $token")
-    }
-
     fun addStory(
         photo: MultipartBody.Part, description: RequestBody, token: String, lat: Float? = null,
         lon: Float? = null
@@ -55,7 +51,7 @@ class UserRepository(
     }
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getUserStoryList(): LiveData<PagingData<StoryModel>> {
+    fun getUserStoryList(token: String): LiveData<PagingData<StoryModel>> {
         Log.e("getUserStoryList", "run getUserStoryList")
 
         return Pager(
@@ -66,7 +62,7 @@ class UserRepository(
             remoteMediator = StoryRemoteMediator(
                 userStoryDatabase,
                 apiService,
-                pref,
+                token
             ),
             pagingSourceFactory = {userStoryDatabase.userStoryDao().getAllUserStories()}
         ).liveData

@@ -3,18 +3,21 @@ package com.example.proyekakhirstoryapp.ui.home.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyekakhirstoryapp.R
-import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
+import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.databinding.ItemRowStoryBinding
 import com.example.proyekakhirstoryapp.ui.detailstory.DetailStoryActivity
+import com.example.proyekakhirstoryapp.utils.DiffUtilCallback
 
-class ListStoryAdapter(private val listStory: List<ListStoryItem?>) :
-    RecyclerView.Adapter<ListStoryAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ItemRowStoryBinding) : RecyclerView.ViewHolder(binding.root)
+class ListStoryAdapter :
+    PagingDataAdapter<StoryModel, ListStoryAdapter.ViewHolder>(DiffUtilCallback()) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
+
+    class ViewHolder(val binding: ItemRowStoryBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -22,23 +25,24 @@ class ListStoryAdapter(private val listStory: List<ListStoryItem?>) :
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = listStory.size
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (listStory[position] != null) {
-            Glide.with(holder.itemView.context).load(listStory[position]!!.photoUrl)
-                .into(holder.binding.ivItemPhoto)
-            holder.binding.tvItemName.text = listStory[position]!!.name
-            holder.binding.tvItemDesc.text = listStory[position]!!.description
-            holder.binding.tvCreateDesc.text = holder.itemView.context.resources.getString(R.string.story_created_at, listStory[position]!!.createdAt!!.subSequence(0, 9))
-        }
+        val story = getItem(position)
 
-        holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(listStory[position])
-            val intentToDetailStory =
-                Intent(holder.itemView.context, DetailStoryActivity::class.java)
-            intentToDetailStory.putExtra(KEY_ID, listStory[position]?.id)
-            holder.itemView.context.startActivity(intentToDetailStory)
+        holder.apply {
+            Glide.with(holder.itemView.context).load(story?.image).into(holder.binding.ivItemPhoto)
+            binding.tvItemName.text = story?.name
+            binding.tvItemDesc.text = story?.description
+            binding.tvCreateDesc.text = itemView.context.resources.getString(
+                R.string.story_created_at,
+                story?.createdAt?.subSequence(0, 9)
+            )
+
+            itemView.setOnClickListener {
+                onItemClickCallback.onItemClicked(story)
+                val intentToDetailStory = Intent(itemView.context, DetailStoryActivity::class.java)
+                intentToDetailStory.putExtra(KEY_ID, story?.id)
+                holder.itemView.context.startActivity(intentToDetailStory)
+            }
         }
     }
 
@@ -47,10 +51,10 @@ class ListStoryAdapter(private val listStory: List<ListStoryItem?>) :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(stories: ListStoryItem?)
+        fun onItemClicked(stories: StoryModel?)
     }
 
-    companion object{
+    companion object {
         const val KEY_ID = "key_id"
     }
 }

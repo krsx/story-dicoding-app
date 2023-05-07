@@ -13,23 +13,19 @@ import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.data.db.remotekey.RemoteKeys
 import retrofit2.awaitResponse
 import androidx.room.withTransaction
-import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
     private val userStoryDatabase: UserStoryDatabase,
     private val apiService: ApiService,
-    private val pref: SettingPreference,
+    private val token: String,
 ) : RemoteMediator<Int, StoryModel>() {
-
-    override suspend fun initialize(): InitializeAction {
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
-    }
 
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, StoryModel>
     ): MediatorResult {
+
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
@@ -37,68 +33,84 @@ class StoryRemoteMediator(
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
-                val prevKey = remoteKeys?.prevKey ?: return MediatorResult.Success(
-                    endOfPaginationReached = remoteKeys != null
-                )
+                val prevKey = remoteKeys?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                 prevKey
             }
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
-                val nextKey = remoteKeys?.nextKey ?: return MediatorResult.Success(
-                    endOfPaginationReached = remoteKeys != null
-                )
+                val nextKey = remoteKeys?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
                 nextKey
             }
         }
 
         return try {
+            Log.e("StoryRemoteMediator", token)
             val response = apiService.getAllStories(
-                location = 0,
+                token = "Bearer $token",
+                location = 1,
                 page = page,
                 size = state.config.pageSize,
-                token = getUserToken().toString()
             ).awaitResponse().body()
-            val responseData = response?.listStory as List<StoryModel>
-            val endOfPaginationReached = responseData.isEmpty()
 
-            Log.i("StoryRemoteMediator", "inserting: $response")
+            val endOfPaginationReached = response?.listStory?.isEmpty()
+
+            Log.e("StoryRemoteMediator", "inserting: $response")
 
             userStoryDatabase.withTransaction {
+
+                Log.e("StoryRemoteMediator", "test")
+
                 if (loadType == LoadType.REFRESH) {
                     userStoryDatabase.remoteKeysDao().deleteAllRemoteKeys()
                     userStoryDatabase.userStoryDao().deleteAllUserStories()
                 }
 
-                val nextKey = if (endOfPaginationReached) null else page + 1
+                val nextKey = if (endOfPaginationReached!!) null else page + 1
                 val prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1
-                val keys = responseData.map {
+                val keys = response.listStory.map {
                     RemoteKeys(
-                        id = it.id,
+                        id = it?.id!!,
                         prevKey = prevKey,
                         nextKey = nextKey
                     )
                 }
+
                 userStoryDatabase.remoteKeysDao().insertAll(keys)
 
+                val responseData = response.listStory.map {
+                    StoryModel(
+                        it?.id!!,
+                        it.name,
+                        it.description,
+                        it.photoUrl,
+                        it.createdAt,
+                        it.lat as Double?,
+                        it.lon as Double?,
+                    )
+                }
+
                 userStoryDatabase.userStoryDao().insertUserStory(responseData)
+
+
             }
-            MediatorResult.Success(endOfPaginationReached)
+            MediatorResult.Success(endOfPaginationReached!!)
         } catch (e: Exception) {
             MediatorResult.Error(e)
         }
 
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, StoryModel>): RemoteKeys? {
-        return state.pages.lastOrNull {
-            it.data.isNotEmpty()
-        }?.data?.lastOrNull()?.let { data ->
-            userStoryDatabase.remoteKeysDao().getRemoteKey(data.id)
-        }
-
+    override suspend fun initialize(): InitializeAction {
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, StoryModel>): RemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, StoryModel>) : RemoteKeys? {
+        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { data ->
+            userStoryDatabase.remoteKeysDao().getRemoteKey(data.id)
+        }
+    }
+
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, StoryModel>) : RemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { data ->
             userStoryDatabase.remoteKeysDao().getRemoteKey(data.id)
         }
@@ -113,11 +125,6 @@ class StoryRemoteMediator(
             }
         }
     }
-
-    fun getUserToken(): LiveData<String> {
-        return pref.getUserToken().asLiveData()
-    }
-
 
     private companion object {
         const val INITIAL_PAGE_INDEX = 1
