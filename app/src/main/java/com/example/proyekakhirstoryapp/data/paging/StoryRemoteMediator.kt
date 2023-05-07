@@ -1,8 +1,6 @@
 package com.example.proyekakhirstoryapp.data.paging
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -44,9 +42,9 @@ class StoryRemoteMediator(
         }
 
         return try {
-            Log.e("StoryRemoteMediator", token)
+            val formatToken = "Bearer $token"
             val response = apiService.getAllStories(
-                token = "Bearer $token",
+                token = formatToken,
                 location = 1,
                 page = page,
                 size = state.config.pageSize,
@@ -57,8 +55,6 @@ class StoryRemoteMediator(
             Log.e("StoryRemoteMediator", "inserting: $response")
 
             userStoryDatabase.withTransaction {
-
-                Log.e("StoryRemoteMediator", "test")
 
                 if (loadType == LoadType.REFRESH) {
                     userStoryDatabase.remoteKeysDao().deleteAllRemoteKeys()

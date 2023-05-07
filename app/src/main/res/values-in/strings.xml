@@ -45,4 +45,6 @@
     <string name="title_add_story">Tambah Story</string>
     <string name="error_email">Format email salah</string>
     <string name="add_your_story">Tambah Story Anda</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="failed_load_data">Gagal memuat data</string>
 </resources>

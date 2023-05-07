@@ -45,5 +45,7 @@
     <string name="title_add_story">Add Story</string>
     <string name="add_your_story">Add Your Story</string>
 
+    <string name="retry">Reload</string>
+    <string name="failed_load_data">Failed to load data</string>
 
 </resources>

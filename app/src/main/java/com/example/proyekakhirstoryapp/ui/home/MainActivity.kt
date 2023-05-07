@@ -17,6 +17,7 @@ import com.example.proyekakhirstoryapp.ui.settings.SettingsActivity
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.ui.addstory.AddStoryActivity
 import com.example.proyekakhirstoryapp.ui.home.adapter.ListStoryAdapter
+import com.example.proyekakhirstoryapp.ui.home.adapter.LoadingStateListStoryAdapter
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -73,13 +74,16 @@ class MainActivity : AppCompatActivity() {
         binding.rvStories.layoutManager = layoutManager
 
         listStoryAdapter = ListStoryAdapter()
-        binding.rvStories.adapter = listStoryAdapter
 
         mainViewModel.userStories.observe(this){
-            Log.e("MainActivity", "submitted $it")
             listStoryAdapter.submitData(lifecycle, it)
         }
 
+        binding.rvStories.adapter = listStoryAdapter.withLoadStateFooter(
+            footer = LoadingStateListStoryAdapter{
+                listStoryAdapter.retry()
+            }
+        )
 
         listStoryAdapter.setOnItemClickCallback(object: ListStoryAdapter.OnItemClickCallback{
             override fun onItemClicked(stories: StoryModel?) {
