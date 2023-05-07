@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.proyekakhirstoryapp.BuildConfig
 import com.example.proyekakhirstoryapp.data.api.retrofit.ApiConfig
 import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
+import com.example.proyekakhirstoryapp.data.db.userstory.UserStoryDatabase
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
 import com.example.proyekakhirstoryapp.ui.login.dataStore
 import okhttp3.OkHttpClient
@@ -27,8 +28,9 @@ object Injection {
 
         val apiService = ApiConfig.getApiService(client)
 
+        val userStoryDatabase = UserStoryDatabase.getDatabase(context)
 
-        return UserRepository.getInstance(pref, apiService)
+        return UserRepository.getInstance(pref, apiService, userStoryDatabase)
     }
 
 }
