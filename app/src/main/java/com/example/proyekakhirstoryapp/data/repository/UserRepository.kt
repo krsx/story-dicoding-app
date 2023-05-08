@@ -10,6 +10,8 @@ import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.data.db.userstory.UserStoryDatabase
 import com.example.proyekakhirstoryapp.data.paging.StoryRemoteMediator
+import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyle
+import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapType
 import com.example.proyekakhirstoryapp.utils.AppExecutors
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -73,6 +75,12 @@ class UserRepository(
     fun getStoriesMap(token: String): Call<StoriesResponse> {
         return apiService.getAllStories(token, 1)
     }
+
+    fun getMapType(): LiveData<MapType> = pref.getMapType().asLiveData()
+    suspend fun saveMapType(value: MapType) = pref.saveMapType(value)
+
+    fun getMapStyle(): LiveData<MapStyle> = pref.getMapStyle().asLiveData()
+    suspend fun saveMapStyle(value: MapStyle) = pref.saveMapStyle(value)
 
     companion object {
         @Volatile

@@ -14,7 +14,9 @@ import androidx.core.content.ContextCompat
 
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityMapsBinding
+import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyle
 import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyleFragment
+import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapType
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 
@@ -23,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 
 
@@ -65,14 +68,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-          R.id.btn_map_style -> {
-              val mapStyleFragment = MapStyleFragment()
-              mapStyleFragment.show(supportFragmentManager, TAG)
-          }
+        when (item.itemId) {
+            R.id.btn_map_style -> {
+                val mapStyleFragment = MapStyleFragment()
+                mapStyleFragment.show(supportFragmentManager, TAG)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
@@ -104,11 +108,60 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             bounds,
                             resources.displayMetrics.widthPixels,
                             resources.displayMetrics.heightPixels,
-                            100
+                            500
                         )
                     )
                 }
             }
+        }
+
+        mapViewModel.getMapStyle().observe(this) { style ->
+            when (style) {
+                MapStyle.NORMAL -> setMapStyle(googleMap, MapStyle.NORMAL)
+                MapStyle.NIGHT -> setMapStyle(googleMap, MapStyle.NIGHT)
+                MapStyle.SILVER -> setMapStyle(googleMap, MapStyle.SILVER)
+                else -> setMapStyle(googleMap, MapStyle.NORMAL)
+            }
+        }
+
+        mapViewModel.getMapType().observe(this) { type ->
+            when (type) {
+                MapType.NORMAL -> setMapType(googleMap, MapType.NORMAL)
+                MapType.SATELLITE -> setMapType(googleMap, MapType.SATELLITE)
+                MapType.TERRAIN -> setMapType(googleMap, MapType.TERRAIN)
+                else -> setMapType(googleMap, MapType.NORMAL)
+            }
+        }
+    }
+
+    private fun setMapType(mMap: GoogleMap, type: MapType) {
+        when (type) {
+            MapType.NORMAL -> mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+            MapType.SATELLITE -> mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            MapType.TERRAIN -> mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+        }
+    }
+
+    private fun setMapStyle(mMap: GoogleMap, style: MapStyle) {
+        when (style) {
+            MapStyle.NORMAL -> mMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this,
+                    R.raw.map_syke_normal
+                )
+            )
+            MapStyle.NIGHT -> mMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this,
+                    R.raw.map_style_night
+                )
+            )
+            MapStyle.SILVER -> mMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this,
+                    R.raw.map_style_silver
+                )
+            )
         }
     }
 
@@ -143,7 +196,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
-    companion object{
+    companion object {
         const val TAG = "MapActivity"
     }
 }

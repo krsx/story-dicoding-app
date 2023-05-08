@@ -124,17 +124,6 @@
         app:layout_constraintStart_toStartOf="@+id/cv_map_terrain"
         app:layout_constraintTop_toBottomOf="@+id/cv_map_terrain" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="192dp"
-        android:alpha="0.3"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/tv_map_style"
         style="@style/styleTextNormal"
@@ -145,7 +134,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_map_default" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_map_style_default"
