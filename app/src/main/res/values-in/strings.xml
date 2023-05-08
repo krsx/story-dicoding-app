@@ -47,4 +47,6 @@
     <string name="add_your_story">Tambah Story Anda</string>
     <string name="retry">Coba Lagi</string>
     <string name="failed_load_data">Gagal memuat data</string>
+    <string name="title_activity_maps">Map View</string>
+    <string name="cb_share_location">Bagikan lokasi saya</string>
 </resources>

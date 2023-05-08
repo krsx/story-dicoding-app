@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyekakhirstoryapp.R
-import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.databinding.ActivityMainBinding
 import com.example.proyekakhirstoryapp.ui.settings.SettingsActivity
@@ -27,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listStoryAdapter: ListStoryAdapter
 
     private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

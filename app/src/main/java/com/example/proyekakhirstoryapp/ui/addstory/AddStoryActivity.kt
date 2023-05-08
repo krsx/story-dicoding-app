@@ -21,6 +21,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityAddStoryBinding
+import com.example.proyekakhirstoryapp.ui.addstory.CameraActivity.Companion.KEY_CAMERA_STATUS
+import com.example.proyekakhirstoryapp.ui.addstory.CameraActivity.Companion.KEY_PHOTO
 import com.example.proyekakhirstoryapp.ui.home.MainActivity
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.utils.reduceFileImage
@@ -205,15 +207,6 @@ class AddStoryActivity : AppCompatActivity() {
         return Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
-    companion object {
-        const val CAMERA_X_RESULT = 200
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
-
-        const val KEY_PHOTO = "photo"
-        const val KEY_CAMERA_STATUS = "isBackCamera"
-    }
-
     private fun setupView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -229,16 +222,25 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-        val title = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).setDuration(500)
         val img = ObjectAnimator.ofFloat(binding.previewImage, View.ALPHA, 1f).setDuration(500)
         val desc = ObjectAnimator.ofFloat(binding.edAddDescription, View.ALPHA, 1f).setDuration(500)
         val camera = ObjectAnimator.ofFloat(binding.btnCamera, View.ALPHA, 1f).setDuration(500)
         val gallery = ObjectAnimator.ofFloat(binding.btnGallery, View.ALPHA, 1f).setDuration(500)
+        val cbLoc = ObjectAnimator.ofFloat(binding.cbShareLoc, View.ALPHA, 1f).setDuration(500)
         val btn = ObjectAnimator.ofFloat(binding.buttonAdd, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(title, img, desc, gallery, camera, btn)
+            playSequentially(img, desc, gallery, camera, btn,cbLoc)
             startDelay = 300
         }.start()
+    }
+
+    companion object {
+        const val CAMERA_X_RESULT = 200
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val REQUEST_CODE_PERMISSIONS = 10
+
+        const val KEY_PHOTO = "photo"
+        const val KEY_CAMERA_STATUS = "isBackCamera"
     }
 }
