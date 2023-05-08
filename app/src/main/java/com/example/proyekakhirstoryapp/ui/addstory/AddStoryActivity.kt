@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -18,16 +19,17 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityAddStoryBinding
-import com.example.proyekakhirstoryapp.ui.addstory.CameraActivity.Companion.KEY_CAMERA_STATUS
-import com.example.proyekakhirstoryapp.ui.addstory.CameraActivity.Companion.KEY_PHOTO
 import com.example.proyekakhirstoryapp.ui.home.MainActivity
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.example.proyekakhirstoryapp.utils.reduceFileImage
 import com.example.proyekakhirstoryapp.utils.rotateFile
 import com.example.proyekakhirstoryapp.utils.uriToFile
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -41,6 +43,7 @@ class AddStoryActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val addStoryViewModel: AddStoryViewModel by viewModels { factory }
     private var getFile: File? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +73,18 @@ class AddStoryActivity : AppCompatActivity() {
             startGallery()
         }
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        binding.cbShareLoc.setOnCheckedChangeListener { _, checked ->
+            if (checked) {
+                requestPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+            }
+        }
+
         binding.buttonAdd.setOnClickListener {
             if (getFile != null) {
                 if (binding.edAddDescription.text != null) {
@@ -85,17 +100,35 @@ class AddStoryActivity : AppCompatActivity() {
                     )
 
                     addStoryViewModel.getUserToken().observe(this) { token ->
-                        uploadStory(imageMultipart, desc, "bearer $token")
-                        addStoryViewModel.error.observe(this) { error ->
-                            if (!error) {
-                                val intentToMain = Intent(this, MainActivity::class.java)
-                                startActivity(intentToMain)
-                                finish()
-                            } else {
-                                addStoryViewModel.message.observe(this) { message ->
-                                    val msg = getString(R.string.error_upload)
-                                    displayToast("$message: $msg")
-                                }
+                        val formatToken = "Bearer $token"
+                        addStoryViewModel.loc.observe(this) { loc ->
+                            if (loc != null) {
+                                uploadStory(
+                                    imageMultipart,
+                                    desc,
+                                    formatToken,
+                                    loc.latitude.toFloat(),
+                                    loc.longitude.toFloat()
+                                )
+                            }else{
+                                uploadStory(
+                                    imageMultipart,
+                                    desc,
+                                    formatToken,
+                                )
+                            }
+                        }
+                    }
+
+                    addStoryViewModel.error.observe(this) { error ->
+                        if (!error) {
+                            val intentToMain = Intent(this, MainActivity::class.java)
+                            startActivity(intentToMain)
+                            finish()
+                        } else {
+                            addStoryViewModel.message.observe(this) { message ->
+                                val msg = getString(R.string.error_upload)
+                                displayToast("$message: $msg")
                             }
                         }
                     }
@@ -203,6 +236,50 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                    getMyLastLocation()
+                }
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                    getMyLastLocation()
+                }
+                else -> {
+                    binding.cbShareLoc.isChecked = false
+                    binding.cbShareLoc.isEnabled = false
+                }
+            }
+        }
+
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this.applicationContext,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun getMyLastLocation() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    addStoryViewModel.saveLoc(location)
+                }
+            }
+        } else {
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
     private fun displayToast(msg: String) {
         return Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
@@ -230,7 +307,7 @@ class AddStoryActivity : AppCompatActivity() {
         val btn = ObjectAnimator.ofFloat(binding.buttonAdd, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(img, desc, gallery, camera, btn,cbLoc)
+            playSequentially(img, desc, gallery, camera, cbLoc, btn)
             startDelay = 300
         }.start()
     }

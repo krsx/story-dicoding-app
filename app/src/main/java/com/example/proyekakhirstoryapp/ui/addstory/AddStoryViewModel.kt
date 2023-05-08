@@ -1,5 +1,6 @@
 package com.example.proyekakhirstoryapp.ui.addstory
 
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +23,16 @@ class AddStoryViewModel(private val userRepository: UserRepository) : ViewModel(
 
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
+
+    var loc = MutableLiveData<Location?>()
+
+    init {
+        loc.value = null
+    }
+
+    fun saveLoc(location: Location?) {
+        loc.value = location
+    }
 
     fun uploadStory(
         photo: MultipartBody.Part,
