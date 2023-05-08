@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 object Injection {
 
     fun provideUserRepository(context: Context): UserRepository {
+        val appExecutor = AppExecutors()
 
         val pref = SettingPreference.getInstance(context.dataStore)
 
@@ -30,7 +31,7 @@ object Injection {
 
         val userStoryDatabase = UserStoryDatabase.getDatabase(context)
 
-        return UserRepository.getInstance(pref, apiService, userStoryDatabase)
+        return UserRepository.getInstance(pref, apiService, userStoryDatabase, appExecutor)
     }
 
 }

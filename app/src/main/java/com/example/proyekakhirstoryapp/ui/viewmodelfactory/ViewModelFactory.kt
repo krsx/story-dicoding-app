@@ -8,6 +8,7 @@ import com.example.proyekakhirstoryapp.ui.addstory.AddStoryViewModel
 import com.example.proyekakhirstoryapp.ui.detailstory.DetailStoryViewModel
 import com.example.proyekakhirstoryapp.ui.home.MainViewModel
 import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
+import com.example.proyekakhirstoryapp.ui.map.MapViewModel
 import com.example.proyekakhirstoryapp.ui.register.RegisterViewModel
 import com.example.proyekakhirstoryapp.ui.settings.SettingsViewModel
 import com.example.proyekakhirstoryapp.utils.Injection
@@ -48,6 +49,9 @@ class ViewModelFactory private constructor(
                 userRepository
             ) as T
             modelClass.isAssignableFrom(SettingsViewModel::class.java) -> SettingsViewModel(
+                userRepository
+            ) as T
+            modelClass.isAssignableFrom(MapViewModel::class.java) -> MapViewModel(
                 userRepository
             ) as T
             else -> throw java.lang.IllegalArgumentException("Unkown ViewModel class: ${modelClass.name}")

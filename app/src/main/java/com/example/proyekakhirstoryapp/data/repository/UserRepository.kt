@@ -10,6 +10,7 @@ import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.data.db.userstory.UserStoryDatabase
 import com.example.proyekakhirstoryapp.data.paging.StoryRemoteMediator
+import com.example.proyekakhirstoryapp.utils.AppExecutors
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -18,6 +19,7 @@ class UserRepository(
     private val pref: SettingPreference,
     private val apiService: ApiService,
     private val userStoryDatabase: UserStoryDatabase,
+    val appExecutors: AppExecutors,
 ) {
     fun userLogin(email: String, password: String): Call<LoginResponse> {
         return apiService.loginUser(email, password)
@@ -40,7 +42,10 @@ class UserRepository(
     }
 
     fun addStory(
-        photo: MultipartBody.Part, description: RequestBody, token: String, lat: Float? = null,
+        photo: MultipartBody.Part,
+        description: RequestBody,
+        token: String,
+        lat: Float? = null,
         lon: Float? = null
     ): Call<DefaultResponse> {
         return apiService.addStory(token, photo, description, lat, lon)
@@ -60,12 +65,13 @@ class UserRepository(
                 enablePlaceholders = false,
             ),
             remoteMediator = StoryRemoteMediator(
-                userStoryDatabase,
-                apiService,
-                token
+                userStoryDatabase, apiService, token
             ),
-            pagingSourceFactory = {userStoryDatabase.userStoryDao().getAllUserStories()}
-        ).liveData
+            pagingSourceFactory = { userStoryDatabase.userStoryDao().getAllUserStories() }).liveData
+    }
+
+    fun getStoriesMap(token: String): Call<StoriesResponse> {
+        return apiService.getAllStories(token, 1)
     }
 
     companion object {
@@ -77,9 +83,9 @@ class UserRepository(
             pref: SettingPreference,
             apiService: ApiService,
             userStoryDatabase: UserStoryDatabase,
-        ): UserRepository =
-            instance ?: synchronized(this) {
-                instance ?: UserRepository(pref, apiService, userStoryDatabase)
-            }.also { instance = it }
+            appExecutors: AppExecutors,
+        ): UserRepository = instance ?: synchronized(this) {
+            instance ?: UserRepository(pref, apiService, userStoryDatabase, appExecutors)
+        }.also { instance = it }
     }
 }
