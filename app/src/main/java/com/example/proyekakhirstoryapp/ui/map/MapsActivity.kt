@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -12,6 +14,7 @@ import androidx.core.content.ContextCompat
 
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityMapsBinding
+import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyleFragment
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 
@@ -51,8 +54,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapViewModel.message.observe(this) {
             displayToast(it)
         }
+
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.map_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+          R.id.btn_map_style -> {
+              val mapStyleFragment = MapStyleFragment()
+              mapStyleFragment.show(supportFragmentManager, TAG)
+          }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
@@ -121,5 +141,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun displayToast(msg: String) {
         return Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    companion object{
+        const val TAG = "MapActivity"
     }
 }

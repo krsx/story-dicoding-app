@@ -50,5 +50,14 @@
     <string name="title_activity_maps">Map View</string>
 
     <string name="cb_share_location">Share my location</string>
+    <string name="map_view">Map View</string>
+    <string name="map_style">Map Style</string>
+    <string name="map_type">Map Type</string>
+    <string name="map_type_normal">Normal</string>
+    <string name="map_type_satellite">Satellite</string>
+    <string name="map_type_terrain">Terrain</string>
+    <string name="map_style_normal">Normal</string>
+    <string name="map_style_silver">Silver</string>
+    <string name="map_style_night">Night</string>
 
 </resources>

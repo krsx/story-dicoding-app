@@ -49,4 +49,13 @@
     <string name="failed_load_data">Gagal memuat data</string>
     <string name="title_activity_maps">Map View</string>
     <string name="cb_share_location">Bagikan lokasi saya</string>
+    <string name="map_view">Map View</string>
+    <string name="map_style">Gaya Map</string>
+    <string name="map_type">Tipe Map</string>
+    <string name="map_type_normal">Normal</string>
+    <string name="map_type_satellite">Satelit</string>
+    <string name="map_type_terrain">Medan</string>
+    <string name="map_style_normal">Normal</string>
+    <string name="map_style_silver">Malam</string>
+    <string name="map_style_night">Abu - Abu</string>
 </resources>
