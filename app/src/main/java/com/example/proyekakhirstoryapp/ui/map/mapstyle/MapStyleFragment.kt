@@ -30,7 +30,6 @@ class MapStyleFragment : BottomSheetDialogFragment() {
     ): View {
         _binding = FragmentBottomSheetMapStyleBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
