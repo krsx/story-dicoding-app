@@ -14,9 +14,9 @@ import androidx.core.content.ContextCompat
 
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.ActivityMapsBinding
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyle
+import com.example.proyekakhirstoryapp.utils.MapStyle
 import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyleFragment
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapType
+import com.example.proyekakhirstoryapp.utils.MapType
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 

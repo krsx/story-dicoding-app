@@ -10,8 +10,8 @@ import com.example.proyekakhirstoryapp.data.datastore.SettingPreference
 import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.data.db.userstory.UserStoryDatabase
 import com.example.proyekakhirstoryapp.data.paging.StoryRemoteMediator
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyle
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapType
+import com.example.proyekakhirstoryapp.utils.MapStyle
+import com.example.proyekakhirstoryapp.utils.MapType
 import com.example.proyekakhirstoryapp.utils.AppExecutors
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

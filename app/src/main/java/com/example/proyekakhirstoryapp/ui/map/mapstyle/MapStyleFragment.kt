@@ -1,6 +1,7 @@
 package com.example.proyekakhirstoryapp.ui.map.mapstyle
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.databinding.FragmentBottomSheetMapStyleBinding
 import com.example.proyekakhirstoryapp.ui.map.MapViewModel
 import com.example.proyekakhirstoryapp.ui.viewmodelfactory.ViewModelFactory
+import com.example.proyekakhirstoryapp.utils.MapStyle
+import com.example.proyekakhirstoryapp.utils.MapType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -37,12 +40,16 @@ class MapStyleFragment : BottomSheetDialogFragment() {
 
         observer()
         dialogClickListener()
+        hideMapStyle()
     }
 
     private fun observer() {
         mapViewModel.getMapType().observe(this) { type ->
             when (type) {
-                MapType.NORMAL -> highlightSelectedMapType(MapType.NORMAL)
+                MapType.NORMAL -> {
+                    highlightSelectedMapType(MapType.NORMAL)
+                    hideMapStyle(false)
+                }
                 MapType.SATELLITE -> highlightSelectedMapType(MapType.SATELLITE)
                 MapType.TERRAIN -> highlightSelectedMapType(MapType.TERRAIN)
                 else -> highlightSelectedMapType(MapType.NORMAL)
@@ -62,21 +69,18 @@ class MapStyleFragment : BottomSheetDialogFragment() {
     private fun dialogClickListener() {
         binding.cvMapDefault.setOnClickListener {
             mapViewModel.saveMapType(MapType.NORMAL)
-            hideMapStyle(false)
             displayToast(getString(R.string.map_type_normal))
             dismiss()
         }
 
         binding.cvMapSatellite.setOnClickListener {
             mapViewModel.saveMapType(MapType.SATELLITE)
-            hideMapStyle(true)
             displayToast(getString(R.string.map_type_satellite))
             dismiss()
         }
 
         binding.cvMapTerrain.setOnClickListener {
             mapViewModel.saveMapType(MapType.TERRAIN)
-            hideMapStyle(true)
             displayToast(getString(R.string.map_type_terrain))
             dismiss()
         }
@@ -153,8 +157,9 @@ class MapStyleFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun hideMapStyle(isHide: Boolean) {
+    private fun hideMapStyle(isHide: Boolean = true) {
         if (isHide) {
+            Log.e("MapStyleFragment", "GONE")
             binding.tvMapStyle.visibility = View.GONE
             binding.cvMapStyleNight.visibility = View.GONE
             binding.cvMapStyleDefault.visibility = View.GONE
@@ -163,6 +168,7 @@ class MapStyleFragment : BottomSheetDialogFragment() {
             binding.tvMapStyleNormal.visibility = View.GONE
             binding.tvMapStyleSilver.visibility = View.GONE
         } else {
+            Log.e("MapStyleFragment", "VISIBLE")
             binding.tvMapStyle.visibility = View.VISIBLE
             binding.cvMapStyleNight.visibility = View.VISIBLE
             binding.cvMapStyleDefault.visibility = View.VISIBLE

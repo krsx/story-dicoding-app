@@ -4,8 +4,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyle
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapType
+import com.example.proyekakhirstoryapp.utils.MapStyle
+import com.example.proyekakhirstoryapp.utils.MapType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

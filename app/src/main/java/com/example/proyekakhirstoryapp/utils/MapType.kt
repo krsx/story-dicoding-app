@@ -1,4 +1,4 @@
-package com.example.proyekakhirstoryapp.ui.map.mapstyle
+package com.example.proyekakhirstoryapp.utils
 
 enum class MapType {
     NORMAL,

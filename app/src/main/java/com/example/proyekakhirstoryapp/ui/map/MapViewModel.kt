@@ -1,6 +1,5 @@
 package com.example.proyekakhirstoryapp.ui.map
 
-import android.nfc.Tag
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,11 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyekakhirstoryapp.data.api.response.ListStoryItem
 import com.example.proyekakhirstoryapp.data.api.response.StoriesResponse
-import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.data.repository.UserRepository
-import com.example.proyekakhirstoryapp.ui.login.LoginViewModel
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapStyle
-import com.example.proyekakhirstoryapp.ui.map.mapstyle.MapType
+import com.example.proyekakhirstoryapp.utils.MapStyle
+import com.example.proyekakhirstoryapp.utils.MapType
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback

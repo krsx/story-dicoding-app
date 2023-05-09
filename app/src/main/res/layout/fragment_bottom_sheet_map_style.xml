@@ -133,6 +133,7 @@
         android:text="@string/map_style"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_map_default" />
 
@@ -141,6 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_marginTop="24dp"
+        android:visibility="visible"
         app:cardCornerRadius="13dp"
         app:elevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,8 +153,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
-            android:src="@drawable/ic_map_default"
-            android:contentDescription="@string/map_style_normal"/>
+            android:contentDescription="@string/map_style_normal"
+            android:src="@drawable/ic_map_default" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -160,6 +162,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="24dp"
+        android:visibility="visible"
         app:cardCornerRadius="13dp"
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -167,11 +170,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_map_style">
 
         <ImageView
-            android:contentDescription="@string/map_style_night"
             android:id="@+id/iv_map_style_night"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
+            android:contentDescription="@string/map_style_night"
             android:src="@drawable/ic_map_style_night" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -180,6 +183,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="24dp"
+        android:visibility="visible"
         app:cardCornerRadius="13dp"
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -190,8 +194,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
-            android:src="@drawable/ic_map_style_silver"
-            android:contentDescription="@string/map_style_silver" />
+            android:contentDescription="@string/map_style_silver"
+            android:src="@drawable/ic_map_style_silver" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
@@ -201,6 +205,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/map_style_normal"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/cv_map_style_default"
         app:layout_constraintStart_toStartOf="@+id/cv_map_style_default"
         app:layout_constraintTop_toBottomOf="@+id/cv_map_style_default" />
@@ -212,6 +217,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/map_style_night"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/cv_map_style_night"
         app:layout_constraintStart_toStartOf="@+id/cv_map_style_night"
         app:layout_constraintTop_toBottomOf="@+id/cv_map_style_night" />
@@ -223,6 +229,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/map_style_silver"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/cv_map_style_silver"
         app:layout_constraintStart_toStartOf="@+id/cv_map_style_silver"
         app:layout_constraintTop_toBottomOf="@+id/cv_map_style_silver" />
