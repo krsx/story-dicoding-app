@@ -8,6 +8,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.proyekakhirstoryapp.R
 import com.example.proyekakhirstoryapp.data.db.model.StoryModel
 import com.example.proyekakhirstoryapp.databinding.ActivityMainBinding
@@ -34,14 +36,14 @@ class MainActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
 
-        setupActionBar()
-
-        setStoriesData()
-
         binding.fabAddStory.setOnClickListener{
             val intentToAddStory = Intent(this, AddStoryActivity::class.java)
             startActivity(intentToAddStory)
         }
+
+        setupActionBar()
+
+        setStoriesData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -78,6 +80,13 @@ class MainActivity : AppCompatActivity() {
         binding.rvStories.layoutManager = layoutManager
 
         listStoryAdapter = ListStoryAdapter()
+        listStoryAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                if (positionStart == 0) {
+                    layoutManager.scrollToPosition(0)
+                }
+            }
+        })
 
         mainViewModel.userStories.observe(this){
             listStoryAdapter.submitData(lifecycle, it)
@@ -91,7 +100,6 @@ class MainActivity : AppCompatActivity() {
 
         listStoryAdapter.setOnItemClickCallback(object: ListStoryAdapter.OnItemClickCallback{
             override fun onItemClicked(stories: StoryModel?) {
-
             }
         })
     }

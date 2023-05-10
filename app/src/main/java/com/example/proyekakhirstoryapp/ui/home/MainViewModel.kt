@@ -1,6 +1,5 @@
 package com.example.proyekakhirstoryapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,7 +18,5 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     fun getUserStories(token:String){
         userStories = userRepository.getUserStoryList(token).cachedIn(viewModelScope)
-//        Log.e("MainViewModel", userStories.isInitialized.toString())
     }
-
 }

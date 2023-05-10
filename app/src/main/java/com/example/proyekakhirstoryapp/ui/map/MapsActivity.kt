@@ -108,7 +108,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             bounds,
                             resources.displayMetrics.widthPixels,
                             resources.displayMetrics.heightPixels,
-                            500
+                            300
                         )
                     )
                 }

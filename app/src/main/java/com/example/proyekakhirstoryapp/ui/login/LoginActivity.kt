@@ -147,10 +147,10 @@ class LoginActivity : AppCompatActivity() {
         val email = ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f).setDuration(500)
         val pass = ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f).setDuration(500)
         val button = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
-        val have_acc = ObjectAnimator.ofFloat(binding.layoutNoAcc, View.ALPHA, 1f).setDuration(500)
+        val haveAcc = ObjectAnimator.ofFloat(binding.layoutNoAcc, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(title, email, pass, button, have_acc)
+            playSequentially(title, email, pass, button, haveAcc)
             startDelay = 300
         }.start()
     }

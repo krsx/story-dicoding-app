@@ -43,14 +43,12 @@
     <string name="title_settings">Settings</string>
     <string name="title_detail">Detail Story</string>
     <string name="title_add_story">Add Story</string>
-    <string name="add_your_story">Add Your Story</string>
 
     <string name="retry">Reload</string>
     <string name="failed_load_data">Failed to load data</string>
     <string name="title_activity_maps">Map View</string>
 
     <string name="cb_share_location">Share my location</string>
-    <string name="map_view">Map View</string>
     <string name="map_style">Map Style</string>
     <string name="map_type">Map Type</string>
     <string name="map_type_normal">Normal</string>

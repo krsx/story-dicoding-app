@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MapViewModel(private val userRepository: UserRepository) : ViewModel() {
-    var myLocationPermission = MutableLiveData<Boolean>()
+    private var myLocationPermission = MutableLiveData<Boolean>()
 
     private var _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
